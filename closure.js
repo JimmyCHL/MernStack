@@ -9,6 +9,8 @@
 // by returning them through child function
 // function retruning another function is closure example
 
+//A closure in JavaScript occurs when a function is defined inside another function and retains access to its parent function's scope, even after the parent function has executed.
+
 function Accounts(name, age, balance, type) {
   //Private scope
   var AccName = name
@@ -24,6 +26,7 @@ function Accounts(name, age, balance, type) {
     //things returned from this function are public
     if (pwd == password) {
       return {
+        // short hand from ES6, if variable name (from which we read the value) and key refers to same name.
         AccName,
         AccHolderAge,
         AccBalance,
