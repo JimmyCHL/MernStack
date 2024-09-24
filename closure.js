@@ -30,7 +30,7 @@ function Accounts(name, age, balance, type) {
         AccName,
         AccHolderAge,
         AccBalance,
-        AccBalance,
+        AccType,
       }
     } else {
       return 'Password is incorrect!!'
@@ -45,3 +45,5 @@ var acctObj = Accounts('Mark', 21, '$200000', 'Credit')
 
 console.log(acctObj('Mark', 'xyz'))
 console.log(acctObj('Mark', '3123'))
+
+// Create your own example of closure and share with me on your git hub link
