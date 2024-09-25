@@ -79,9 +79,9 @@ var DispatchItem = { User, Address, Address2 }
 
 console.log(DispatchItem) // this will reflect the changed value even after merge
 
-// We need to have principle of immutability so that changed value doesn't reflect and data gets merged avoiding
-// redundancy
-var DispatchItem2 = Object.assign(User, Address, Address2)
+// To adhere to the principle of immutability, we can create a new object that merges User, Address, and Address2.
+// This prevents changes to the original objects, avoiding redundancy and ensuring that modifications don't reflect back.
+var DispatchItem2 = Object.assign({}, User, Address, Address2)
 
 Address2.Mobile = '2151451255'
 
