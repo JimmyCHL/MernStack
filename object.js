@@ -79,10 +79,22 @@ var DispatchItem = { User, Address, Address2 }
 
 console.log(DispatchItem) // this will reflect the changed value even after merge
 
-// To adhere to the principle of immutability, we can create a new object that merges User, Address, and Address2.
+// To adhere to the principle of preservation of immutability, we can create a new object that merges User, Address, and Address2.
 // This prevents changes to the original objects, avoiding redundancy and ensuring that modifications don't reflect back.
 var DispatchItem2 = Object.assign({}, User, Address, Address2)
+
+// This will modify User object and merge the properties of Address and Address2
+// So, DispatchItems and User references the same object ()
+// var DispatchItem2 = Object.assign(User, Address, Address2)
 
 Address2.Mobile = '2151451255'
 
 console.log(DispatchItem2) // this will not reflect the changed value as we have used Object.assign
+console.log(User)
+
+// Questions -
+// Create a Person <few properties and a function to return them> and Inherit it as Student class and override the function
+// Inherit should be done both way's constructor and Object.Create
+// Create three objects and merge their propeties
+// Create a logical example of closure
+// Share few data objects from one file to another
