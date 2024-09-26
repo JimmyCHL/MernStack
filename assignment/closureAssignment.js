@@ -95,3 +95,10 @@ console.log('withdraw 1000')
 debitCardAction.withdraw(1000)
 
 console.log('balance :' + debitCardAction.balance)
+
+// Share few data objects from one file to another from object.js
+const shareObject = require('./objectAssignment')
+
+console.log(shareObject.person)
+console.log(shareObject.student)
+console.log(shareObject.mergedObj)
