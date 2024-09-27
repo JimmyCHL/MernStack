@@ -53,4 +53,5 @@ console.log(typeof newVar) // object
 var symbol_1 = Symbol('New Value of my choice')
 
 console.log(symbol_1)
+console.log(symbol_1.description)
 console.log('Data Type ', typeof symbol_1)
