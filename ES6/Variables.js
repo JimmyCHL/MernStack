@@ -112,3 +112,11 @@ for (l = 0; l < 5; l++) {
   })(l) //l - is evaluated immediately
   console.log(l) // 0, 1, 2, 3, 4
 }
+
+/** Because of let, it create independent block scope on each loop, so when setTimeout is schedule, it can access the t value in that block. */
+for (let t = 0; t < 5; t++) {
+  setTimeout(function () {
+    console.log('inner t')
+    console.log(t) //0, 1,2,3,4
+  }, 3000)
+}
