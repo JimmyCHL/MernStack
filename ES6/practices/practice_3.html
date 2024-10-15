@@ -1,0 +1,52 @@
+<!-- 4.1 Example of bind function on browser, we must be able to change the object on click -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bind Example on Browser</title>
+  </head>
+  <script>
+    const obj = {
+      showDetail: function () {
+        document.getElementById('output').textContent = this.detail()
+      },
+    }
+
+    const user = {
+      name: 'Jimmy',
+      age: '30',
+      detail: function () {
+        return `Name: ${this.name}, Age: ${this.age}`
+      },
+    }
+
+    const product = {
+      name: 'Iphone',
+      price: '1000',
+      detail: function () {
+        return `Name: ${this.name}, Price: ${this.price}`
+      },
+    }
+
+    const address = {
+      city: 'Lexington',
+      country: 'USA',
+      state: 'South Carolina',
+      detail: function () {
+        return `City: ${this.city}, State: ${this.state}, Country: ${this.country}`
+      },
+    }
+
+    // Bind the showDetail method to the obj object
+    const showUserDetail = obj.showDetail.bind(user)
+    const showProductDetail = obj.showDetail.bind(product)
+    const showAddressDetail = obj.showDetail.bind(address)
+  </script>
+  <body>
+    <button id="userBtn" onClick="showUserDetail()">Click me to show User</button>
+    <button id="productBtn" onClick="showProductDetail()">Click me to show Product</button>
+    <button id="addressBtn" onClick="showAddressDetail()">Click me to show Address</button>
+    <span id="output"></span>
+  </body>
+</html>
