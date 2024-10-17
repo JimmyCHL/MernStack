@@ -48,19 +48,19 @@ console.log(personSavedByThanos)
 
 // Gives the access to the returned values and allows us to manipulate the current object and prevObject anytime in loop
 //4. Get the count of each person saved by every super hero of Marvel
-let eachSavdPersonCount = personsList.reduce((prevObject, currObject, index, list) => {
+let eachSavedPersonCount = personsList.reduce((prevObject, currObject, index, list) => {
   //console.log(prevObject)
   //console.log(currObject)
   //console.log(index)
   //console.log(list)
-  prevObject[currObject.savedby] = prevObject[currObject.savedby] ? prevObject[currObject.savedby] + 1 : 1
+  prevObject[currObject.savedBy] = prevObject[currObject.savedBy] ? prevObject[currObject.savedBy] + 1 : 1
   return prevObject
 }, new Set())
 
-console.log(eachSavdPersonCount)
+console.log(eachSavedPersonCount)
 //console.log(personsList)
 
-//Question :
+//Question : -- (in practice_4)
 ///////////////////////////
 
 let persons = [
