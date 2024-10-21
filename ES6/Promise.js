@@ -65,15 +65,39 @@ let authPromise = new Promise((resolve, reject) => {
 console.log(authPromise)
 //once we get response we can decide to move to next call
 authPromise
-  .then((data, error) => {
+  .then((data) => {
     //result of successful promise - resolved
     console.log(data)
-    console.log(error)
   })
-  .catch((data, error) => {
+  .catch((error) => {
     //result of failed promise - rejected
-    console.log(data)
     console.log(error)
   })
+
 //Create a student promise object and it should return the resolve and reject data after two seconds
 //It should be named as student info
+
+const studentInfo = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve({
+      name: 'John Doe',
+      age: 21,
+      grade: 'A',
+    })
+  }, 2000)
+  setTimeout(() => {
+    reject({
+      name: 'Not Found Error',
+      code: '202',
+      msg: 'Student not found in the database',
+    })
+  }, 2000)
+})
+
+studentInfo
+  .then((data) => {
+    console.log(data)
+  })
+  .catch((error) => {
+    console.log(error)
+  })
