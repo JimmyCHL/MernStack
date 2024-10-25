@@ -1,4 +1,4 @@
-// node.js
+// node.js (event driven, non-blocking, asynchronous)
 // a run time environment for JS
 // single threaded. high performance module
 // google chrome v8 - engine
@@ -24,6 +24,8 @@
 //3. Hongbo  <=> Attendendant Takes all three order <=> Kitchen (doesn't waits for 10 mins) <=> Token3 <pending, ready, cancelled>
 //First Ready Hongbo - 10 min
 //Second Eatable Ben - 20 min
-//Third Duncan Eatable - 30 min 
+//Third Duncan Eatable - 30 min
 // Max (10,20,30) ==> 30 mins
 //Percentange perfornmace better => 50%
+
+global.connectionString = 'mongodb://localhost:27017/ecommerce'
