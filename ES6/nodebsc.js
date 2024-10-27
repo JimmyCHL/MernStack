@@ -44,23 +44,36 @@ console.log(path.resolve(__filename)) // gives the absolute path of the director
 let http = require('http')
 
 log(http.METHODS) // gives requested method available in http module
-log(http.request())
+// log(http.request())
 
 //to write our own customized events
 const { EventEmitter } = require('events')
 //event emitter - on is custom event
-// EventEmitter.on("request","get",(req, res)=>{
-//     res.send("Information to be shared with user")
-// })
+const eventEmitter = new EventEmitter()
+
+// Define a custom event "request" with a listener
+eventEmitter.on('request', (req, res) => {
+  res.send('Information to be shared with user')
+})
+
 //utility module
 const util = require('util')
 // util.log(path.basename(__filename))
 // util.log(path.basename(__dirname))
 log(util.debuglog())
+
 const v8 = require('v8')
 log(v8)
 log(v8.getHeapSnapshot())
 log(v8.getHeapStatistics())
+
 process.nextTick(() => {
   log('Next Tick Called!!')
 })
+
+/**
+ * The process.nextTick() method is useful for scheduling a function to run immediately after the current operation completes but before any I/O tasks.
+It can be particularly helpful for breaking up longer synchronous processes and ensuring that certain operations are completed without blocking the event loop.
+
+ * 
+ */
