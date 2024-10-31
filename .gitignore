@@ -1,2 +1,4 @@
 *.pptx
 /ppt
+/node_api/node_modules
+/node_api/yarn.lock
