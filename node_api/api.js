@@ -39,3 +39,15 @@
 
 // 'start' command in the script is a reserved command, so you cna start the application using npm start / yarn start
 // For other custom command, you can use npm run <command> / yarn run <command> / yarn <command>
+
+// mongodb - using mongoose
+// mongoose = orm (object relationship manager) <json => mapped with backend document based no-sql structure>
+// bson
+// users (collection)  - user (document)
+// [{
+//     username:'jimmy',
+//     address1: {},
+//     address2: {},
+// }]
+//post calls
+// jwt token auth
