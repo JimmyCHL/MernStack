@@ -2,3 +2,5 @@
 /ppt
 /node_api/node_modules
 /node_api/yarn.lock
+*/node_modules
+*/yarn.lock
