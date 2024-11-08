@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "learning purpose",
   "scripts": {
-    "start": "webpack serve --mode development ",
+    "web": "webpack serve --mode development ",
     "build": "webpack --mode production ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
