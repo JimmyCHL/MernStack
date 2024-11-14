@@ -5,7 +5,9 @@ import Header from './CommonComponents/HeaderComponent.js'
 import HomeComponent from './CommonComponents/HomeComponent.js'
 export default class Application extends React.Component {
   constructor(props) {
-    super(props)
+    super(props) //is used to passBack data <props -here> so that it is updated in base object for react framework
+
+    //state - object is used to allow update of values via react rendering life cycle
     this.state = {
       userName: 'Duncan',
       count: 0,
@@ -35,10 +37,15 @@ export default class Application extends React.Component {
 
     // Increment count by 2
     this.setState((prevState) => ({ count: prevState.count + 2 }))
+
+    // this.state.userName = "Christopher" -> this won't update the page
+
+    // console.log("After setstate called", this.state.userName)
   }
 
   //render - method is responsible to create virtual dom for every change of state or props
   render() {
+    console.log('Render is called!! ', this.state.userName)
     let myName = 'Windiee - JSX => Javascript Like XML Structure'
     let nameList = ['Nilay', 'Gesan', 'Jimmy', 'Ben Ma', 'Jay', 'And Everyone else']
     let nameListWorking = ['Windie', 'Stacy', 'Duncan']
