@@ -3,6 +3,7 @@ import React from 'react'
 import Footer from './CommonComponents/Footer.jsx'
 import Header from './CommonComponents/HeaderComponent.js'
 import HomeComponent from './CommonComponents/HomeComponent.js'
+import Jimmy from './CommonComponents/People/Jimmy.jsx'
 export default class Application extends React.Component {
   constructor(props) {
     super(props) //is used to passBack data <props -here> so that it is updated in base object for react framework
@@ -80,6 +81,8 @@ export default class Application extends React.Component {
         <Footer name={this.state.userName} />
 
         <HomeComponent session="React" />
+        <p>================= Start with Jimmy component =================</p>
+        <Jimmy />
       </div>
     )
   }
