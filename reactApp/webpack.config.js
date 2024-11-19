@@ -14,6 +14,7 @@ let path = require('path'), //path module of node framework
     output: {
       path: path.join(__dirname, '/dist'), //dist - distribution
       filename: 'bundle.js',
+      publicPath: '/',
     },
     resolve: {
       extensions: ['.js', '.jsx'], // Webpack will automatically resolve these extensions
