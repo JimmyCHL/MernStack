@@ -10,14 +10,20 @@ let path = require('path'), //path module of node framework
    */
   HtmlWebpackPlugin = require('html-webpack-plugin'), //to load the index html file on request
   config = {
+    entry: './src/index.js',
     output: {
       path: path.join(__dirname, '/dist'), //dist - distribution
       filename: 'bundle.js',
+    },
+    resolve: {
+      extensions: ['.js', '.jsx'], // Webpack will automatically resolve these extensions
     },
     // webpack 5 comes with devServer which loads in development mode
     devServer: {
       port: 9090, //localhost:9090
       historyApiFallback: true, //localhost:9090/user
+      open: true, //open the browser
+      hot: true,
     },
     // Rules of how webpack will take our files, compile & bundle them for the browser
     module: {
