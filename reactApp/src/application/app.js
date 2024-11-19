@@ -28,6 +28,7 @@ export default class Application extends React.Component {
   render() {
     console.log('Render is called!! ', this.state.userName)
 
+    //switch - case works for router
     return (
       <Router>
         <Header />
