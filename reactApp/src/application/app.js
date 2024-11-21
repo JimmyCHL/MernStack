@@ -4,9 +4,10 @@ import './app.css'
 
 import About from './CommonComponents/AboutComponent'
 import { AppCopy } from './CommonComponents/AppCopy'
+import { AW3Component } from './CommonComponents/AW3Component'
 import Footer from './CommonComponents/Footer'
 import Header from './CommonComponents/HeaderComponent'
-import Home from './CommonComponents/HomeComponent'
+import Home from './CommonComponents/HomeTrainerComponent'
 import NotFound from './CommonComponents/NotFoundComponent'
 
 export default class Application extends React.Component {
@@ -33,12 +34,12 @@ export default class Application extends React.Component {
       <Router>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/app" element={<AppCopy />} />
+          <Route path="/" element={<Home user={this.state.user} />} />
+          <Route path="home" element={<Home user={this.state.user} />} />
           <Route path="/app" element={<AppCopy />} />
           <Route path="/about" element={<About />} />
           <Route path="/about/:id" element={<About />} />
+          <Route path="/aws/image" element={<AW3Component />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
