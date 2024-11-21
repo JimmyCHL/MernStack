@@ -1,5 +1,6 @@
 const express = require('express') //import package
 const expsRouter = express.Router({ strict: true, caseSensitive: true }) // a separate route table to create and handle our api's
+const s3 = require('../awsConfig')
 
 const fs = require('fs')
 
@@ -98,4 +99,89 @@ expsRouter.get('/dataForm/:name/:age/:gender', (req, res) => {
   })
 })
 
+/** get data from aws s3 */
+expsRouter.get('/file/:key', function (req, res) {
+  const key = req.params.key
+
+  const params = {
+    Bucket: process.env.BucketName,
+    Key: key,
+  }
+
+  s3.getObject(params, (err, data) => {
+    if (err) {
+      console.log('Error retrieving file from S3:', err)
+      return res.status(500).send('Error retrieving file')
+    }
+
+    // Set the appropriate content type based on the file type
+    res.set('Content-Type', data.ContentType)
+    res.send(data.Body) // Send the file content to the client
+  })
+})
+
+/** upload a file to S3 */
+expsRouter.post('/upload', function (req, res) {
+  const { fileName, fileData } = req.body
+
+  if (!fileData || !fileName) {
+    return res.status(400).send({ error: 'No file data or filename provided.' })
+  }
+
+  // Decode the Base64 file
+  const buffer = Buffer.from(fileData, 'base64')
+
+  const params = {
+    Bucket: process.env.BucketName,
+    Key: fileName,
+    Body: buffer,
+    ContentType: getContentType(fileName), // Set the appropriate content type for the file
+  }
+
+  s3.upload(params, (err, data) => {
+    if (err) {
+      console.log('Error uploading file to S3:', err)
+      return res.status(500).send('Error uploading file')
+    }
+
+    console.log('File uploaded successfully:')
+
+    res.status(200).send({ message: 'File uploaded successfully' })
+  })
+})
+
 module.exports = expsRouter
+
+function getContentType(fileName) {
+  const ext = fileName.split('.').pop().toLowerCase()
+
+  switch (ext) {
+    case 'jpeg':
+    case 'jpg':
+      return 'image/jpeg'
+    case 'png':
+      return 'image/png'
+    case 'gif':
+      return 'image/gif'
+    case 'webp':
+      return 'image/webp'
+    case 'svg':
+      return 'image/svg+xml'
+    case 'pdf':
+      return 'application/pdf'
+    case 'txt':
+      return 'text/plain'
+    case 'html':
+      return 'text/html'
+    case 'json':
+      return 'application/json'
+    case 'zip':
+      return 'application/zip'
+    case 'mp3':
+      return 'audio/mpeg'
+    case 'mp4':
+      return 'video/mp4'
+    default:
+      return 'application/octet-stream' // Default for binary data
+  }
+}

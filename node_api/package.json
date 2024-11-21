@@ -11,6 +11,9 @@
   "author": "Jimmy",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.1692.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.21.1"
   },
   "devDependencies": {

@@ -3,13 +3,14 @@
 // once - minification, transpilation, reference resolution, bundling is done
 // output path and the name of the file <bundle.js>
 // all modules that webpack is dependent on is termed as loaders needed
-let path = require('path'), //path module of node framework
-  /**
-   * A Webpack plugin that generates an HTML file in the output directory and automatically injects <script> tags for the bundled JavaScript.
-   * This is useful for generating the main HTML page that loads your app
-   */
-  HtmlWebpackPlugin = require('html-webpack-plugin'), //to load the index html file on request
-  config = {
+let path = require('path') //path module of node framework
+const Dotenv = require('dotenv-webpack')
+/**
+ * A Webpack plugin that generates an HTML file in the output directory and automatically injects <script> tags for the bundled JavaScript.
+ * This is useful for generating the main HTML page that loads your app
+ */
+;(HtmlWebpackPlugin = require('html-webpack-plugin')), //to load the index html file on request
+  (config = {
     entry: './src/index.js',
     output: {
       path: path.join(__dirname, '/dist'), //dist - distribution
@@ -49,7 +50,7 @@ let path = require('path'), //path module of node framework
         },
       ],
     },
-    plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })], //localhost:9090 - loads this html
-  }
+    plugins: [new HtmlWebpackPlugin({ template: './src/index.html' }), new Dotenv()], //localhost:9090 - loads this html
+  })
 
 module.exports = config

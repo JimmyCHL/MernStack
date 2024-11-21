@@ -1,6 +1,8 @@
 const express = require('express') // importing package
 const app = express() // initializing the express application
 const defaultRoutes = require('./Routes/defaultRoute')
+const s3 = require('./awsConfig')
+const cors = require('cors')
 
 /**
  * In Express, app.use() is a method used to mount middleware or
@@ -13,6 +15,13 @@ const adminApp = express() // initializing the express application
 //user, product, cart etc are the routes - examples
 
 // const router = express.Router()
+
+// Enable CORS for a specific origin (localhost:9090)
+app.use(
+  cors({
+    origin: 'http://localhost:9090', // Replace with your frontend URL
+  })
+)
 
 // Define routes for the admin application
 adminApp.get('/hello', (req, res, next) => {
@@ -33,4 +42,13 @@ app.get('*', function (req, res) {
 
 app.listen(3000, function () {
   console.log('Server is running on port 3000')
+})
+
+// List buckets as a test
+s3.listBuckets((err, data) => {
+  if (err) {
+    console.log('Error:', err)
+  } else {
+    process.env.BucketName = data.Buckets[0].Name || ''
+  }
 })
