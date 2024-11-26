@@ -19,7 +19,7 @@ const techSummaries = {
 
 export const Topics = (props) => {
   const { topicId } = useParams()
-  console.log(topicId)
+
   return (
     <div>
       <div>
@@ -39,6 +39,17 @@ export const Topics = (props) => {
           PropTypes
         </NavLink>
       </div>
+
+      {topicId ? (
+        <div style={{ marginLeft: '10px' }}>
+          <h2>{topicId}</h2>
+          <p>{techSummaries[topicId]}</p>
+        </div>
+      ) : (
+        <div>
+          <h2>Please choose any topics to see their contents.</h2>
+        </div>
+      )}
     </div>
   )
 }
