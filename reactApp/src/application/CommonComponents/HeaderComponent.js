@@ -28,6 +28,9 @@ let Header = (props) => {
         <NavLink to="/aws/image" className="button" activeclassname="true">
           AW3 Image
         </NavLink>
+        <NavLink to="/topics" className="button" activeclassname="true">
+          Topics
+        </NavLink>
       </div>
       <hr />
     </>

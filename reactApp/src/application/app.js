@@ -9,6 +9,7 @@ import Footer from './CommonComponents/Footer'
 import Header from './CommonComponents/HeaderComponent'
 import Home from './CommonComponents/HomeTrainerComponent'
 import NotFound from './CommonComponents/NotFoundComponent'
+import { Topics } from './CommonComponents/Topics'
 
 export default class Application extends React.Component {
   constructor(props) {
@@ -40,6 +41,8 @@ export default class Application extends React.Component {
           <Route path="/about" element={<About />} />
           <Route path="/about/:id" element={<About />} />
           <Route path="/aws/image" element={<AW3Component />} />
+          <Route path="topics" element={<Topics />} />
+          <Route path="topics/:topicId" element={<Topics />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
