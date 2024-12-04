@@ -31,6 +31,10 @@ export default class Home extends Component {
     //and once done with the update of values should put back the data to state
     this.refAddress = createRef()
     this.refSession = createRef()
+
+    // html can't be accessed as no rendering is done yet
+    // this.refAddress.current.value = "New Address",
+    // this.refSession.current.value = "React Component"
   }
 
   //Creation LC - last one in creation life cycle method/hook and also called once after the render
@@ -42,6 +46,9 @@ export default class Home extends Component {
       this.setState({
         firstName: 'The changed name',
       })
+
+      // this.refAddress.current.value = "New Address",
+      //       this.refSession.current.value = "React Component"
     }, 3000)
   }
 
@@ -194,6 +201,9 @@ export default class Home extends Component {
                 onChange={this.onTextChange}
                 maxLength={20}
               ></input>
+            </div>
+            <div className="col-md-3">
+              <b>User Age</b>
             </div>
             <div className="col-md-7">
               <input

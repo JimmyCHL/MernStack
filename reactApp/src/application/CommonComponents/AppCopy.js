@@ -1,4 +1,5 @@
 import React from 'react'
+import ChildComponent from './ChildComponent'
 
 import HomeComponent from './HomeComponent.js'
 import Jimmy from './People/Jimmy.jsx'
@@ -15,6 +16,7 @@ export class AppCopy extends React.Component {
         address: 'Somewhere on earth',
         session: 'Somewhere on webex',
       },
+      newYearWishes: 'Happy New Year!! 2024',
     }
   }
 
@@ -41,6 +43,13 @@ export class AppCopy extends React.Component {
     // this.state.userName = "Christopher" -> this won't update the page
 
     // console.log("After setstate called", this.state.userName)
+  }
+
+  //even to be executed in child component
+  changeMessageFromChild = (msg) => {
+    this.setState({
+      newYearWishes: msg,
+    })
   }
 
   //render - method is responsible to create virtual dom for every change of state or props
@@ -73,6 +82,9 @@ export class AppCopy extends React.Component {
         <HomeComponent session="React" />
         <p>================= Start with Jimmy component =================</p>
         <Jimmy />
+        <p>================= End with Jimmy component =================</p>
+        <h3>{this.state.newYearWishes}</h3>
+        <ChildComponent callBackEvent={this.changeMessageFromChild} />
       </div>
     )
   }
