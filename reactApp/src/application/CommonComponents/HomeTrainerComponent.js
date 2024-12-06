@@ -116,6 +116,11 @@ export default class Home extends Component {
       address,
       session,
     })
+
+    // apart from suppressing default behaviour also helps to work with
+    // - event tunnelling
+    // - event bubbling (ripple effect)
+
     //prevents the default behaviour of posting to server
     evt.preventDefault()
   }
