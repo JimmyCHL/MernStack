@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import './app.css'
 
+import UserComponent from './ApplicationComponents/User/UserComponent'
 import About from './CommonComponents/AboutComponent'
 import { AppCopy } from './CommonComponents/AppCopy'
 import { AW3Component } from './CommonComponents/AW3Component'
@@ -11,7 +12,7 @@ import Home from './CommonComponents/HomeTrainerComponent'
 import NotFound from './CommonComponents/NotFoundComponent'
 import { TopicDetail, Topics } from './CommonComponents/TopicsComponent'
 
-export default class Application extends React.Component {
+export default class ApplicationComponent extends React.Component {
   constructor(props) {
     super(props) //is used to passBack data <props -here> so that it is updated in base object for react framework
 
@@ -37,6 +38,7 @@ export default class Application extends React.Component {
         <Routes>
           <Route path="/" element={<Home user={this.state.user} />} />
           <Route path="home" element={<Home />} />
+          <Route path="login" element={<UserComponent />} />
           <Route path="/app" element={<AppCopy />} />
           <Route path="/about" element={<About />} />
           <Route path="/about/:id" element={<About />} />

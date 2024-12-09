@@ -16,6 +16,10 @@ let Header = (props) => {
         <NavLink to="/home" className="button" activeclassname="true">
           Home
         </NavLink>
+        <NavLink to="/login" className="button" activeclassname="true">
+          {' '}
+          User{' '}
+        </NavLink>
         <NavLink to="/app" className="button" activeclassname="true">
           AppCopy
         </NavLink>
