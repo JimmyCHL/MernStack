@@ -1,16 +1,22 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 let Header = (props) => {
-  let user = {
-    userName: 'Dummy',
-  }
+  let user = props.user //reading from mapStateToProps which reads from userReducer.user
   console.log(user)
 
-  const usrName = user && user.userName ? user.userName : props.userName
+  const usrName = user && user.userName ? user.userName : ''
   return (
     <>
-      <h2>Hi {usrName} , Welcome to Shopping Cart sponsored by Tech Team SIT</h2>
+      {usrName != '' ? (
+        <h2>Hi {usrName} , Welcome to Shopping Cart sponsored by Tech Team SIT</h2>
+      ) : (
+        <div>
+          <h2>Welcome to Shopping Cart sponsored by Tech Team SIT,</h2>
+          <h3>Please click on login button to proceed to login.</h3>
+        </div>
+      )}
 
       <div>
         <NavLink to="/home" className="button" activeclassname="true">
@@ -40,4 +46,10 @@ let Header = (props) => {
     </>
   )
 }
-export default Header
+
+let mapStateToProps = (store) => {
+  return {
+    user: store.userReducer.user,
+  }
+}
+export default connect(mapStateToProps, null)(Header)
