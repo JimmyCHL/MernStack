@@ -3,6 +3,7 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import './app.css'
 
 //import UserComponent from "./ApplicationComponents/User/UserComponent.jsx"; //instead of component we are loading container
+import StudentContainer from './ApplicationComponents/Student/StudentContainer'
 import UserContainer from './ApplicationComponents/User/UserContainer'
 import About from './CommonComponents/AboutComponent'
 import { AppCopy } from './CommonComponents/AppCopy'
@@ -40,6 +41,7 @@ export default class ApplicationComponent extends React.Component {
           <Route path="/" element={<Home user={this.state.user} />} />
           <Route path="home" element={<Home />} />
           <Route path="login" element={<UserContainer />} />
+          <Route path="studentLogin" element={<StudentContainer />} />
           <Route path="/app" element={<AppCopy />} />
           <Route path="/about" element={<About />} />
           <Route path="/about/:id" element={<About />} />

@@ -2,6 +2,7 @@ const express = require('express') // importing package
 const app = express() // initializing the express application
 const defaultRoutes = require('./Routes/defaultRoute')
 const userRoutes = require('./Routes/userRoute')
+const studentRoutes = require('./Routes/studentRoute')
 const s3 = require('./awsConfig')
 const cors = require('cors')
 
@@ -19,6 +20,8 @@ globalThis.parentDirectory = __dirname
 const adminApp = express() // initializing the express application
 
 const userApp = express()
+
+const studentApp = express()
 
 //user, product, cart etc are the routes - examples
 
@@ -47,10 +50,14 @@ adminApp.get('/hello', (req, res, next) => {
 
 userApp.use('/', userRoutes) //redirecting all the calls having user in it to user router
 
+studentApp.use('/', studentRoutes) //redirecting all the calls having student in it to student router
+
 // application mounting
 app.use('/admin', adminApp)
 
 app.use('/user', userApp)
+
+app.use('/student', studentApp)
 
 app.use('/', defaultRoutes)
 

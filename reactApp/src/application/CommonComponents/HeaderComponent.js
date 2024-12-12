@@ -2,11 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
-let Header = (props) => {
+const Header = (props) => {
   let user = props.user //reading from mapStateToProps which reads from userReducer.user
-  console.log(user)
+  // console.log(user)
+  console.log('props.student ' + JSON.stringify(props.student))
 
   const usrName = user && user.userName ? user.userName : ''
+  const studentUsrName = props.student && props.student.userName ? props.student.userName : ''
+
   return (
     <>
       {usrName != '' ? (
@@ -17,14 +20,22 @@ let Header = (props) => {
           <h3>Please click on login button to proceed to login.</h3>
         </div>
       )}
+      <h3>==================================================================</h3>
+      {studentUsrName !== '' ? (
+        <h2>Hi {studentUsrName} , Welcome to Student Portal</h2>
+      ) : (
+        <h3>Please click on Student Login button to proceed to student login.</h3>
+      )}
 
       <div>
         <NavLink to="/home" className="button" activeclassname="true">
           Home
         </NavLink>
         <NavLink to="/login" className="button" activeclassname="true">
-          {' '}
-          User{' '}
+          User
+        </NavLink>
+        <NavLink to="/studentLogin" className="button" activeclassname="true">
+          Student
         </NavLink>
         <NavLink to="/app" className="button" activeclassname="true">
           AppCopy
@@ -50,6 +61,8 @@ let Header = (props) => {
 let mapStateToProps = (store) => {
   return {
     user: store.userReducer.user,
+    student: store.studentReducer.student,
   }
 }
+
 export default connect(mapStateToProps, null)(Header)

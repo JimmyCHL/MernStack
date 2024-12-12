@@ -9,11 +9,8 @@
 //get schema object created and also develop data model to be used in api
 //set validations and data types in schema
 //although mongodb is schema less but with mongoose we can create schema to start with
-let mongooseObj = require('mongoose')
+const mongooseObj = require('./mongooseConnection')
 schemaObj = mongooseObj.Schema //using the schema class from mongoose
-
-//creates db with name mernstack19 or opens a connection if already present
-mongooseObj.connect('mongodb://localhost:27017/mernStack19')
 
 let userSchema = new schemaObj(
   {

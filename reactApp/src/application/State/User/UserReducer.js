@@ -11,7 +11,7 @@ let initialState = {
 }
 //this will be used by store to map the action type and then update/create new user state
 let UserReducer = (state = initialState, action) => {
-  console.log('User Reducer ', action.payload)
+  // console.log('User Reducer ', action.payload)
 
   switch (action.type) {
     case actionTypes.ADD_USER_TO_STORE:
