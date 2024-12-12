@@ -31,10 +31,17 @@ class UserComponent extends Component {
     let newUser = this.state
     alert('Logged Innn -' + JSON.stringify(newUser))
     //upon user action to login we send user to store
-    this.props.addUser(newUser)
+    //this.props.addUser(newUser);
+
+    //this.props.saveUserToDBUsingFetch(newUser);
+    this.props.saveUserToDBUsingAxios(newUser)
 
     // this.props.loginUser(newUser) //will go to usercontainer => useraction => server(db) => store => userreducer
     evt.preventDefault()
+  }
+
+  signOutUser = (evt) => {
+    this.props.signOutUser()
   }
 
   render() {
@@ -92,6 +99,12 @@ class UserComponent extends Component {
               className={'btn btn-primary col-md-2 saveUser'}
               value={'SignIn-Up'}
               onClick={this.loginUser}
+            />
+            <input
+              type="button"
+              className={'btn btn-primary col-md-2 saveUser'}
+              value={'Sign-Out'}
+              onClick={this.signOutUser}
             />
           </div>
         </section>

@@ -1,4 +1,5 @@
 const express = require('express') //import package
+const path = require('path')
 const expsRouter = express.Router({ strict: true, caseSensitive: true }) // a separate route table to create and handle our api's
 const s3 = require('../awsConfig')
 
@@ -27,7 +28,13 @@ expsRouter.get('/getStraightHtml', function (req, res) {
 })
 
 expsRouter.get('/sendFile', function (req, res) {
-  res.sendFile(__dirname + '/index.html')
+  console.log(path.join(__dirname, '../Public/resources/index.html'))
+  res.sendFile(path.join(__dirname, '../Public/resources/index.html'))
+})
+
+expsRouter.get('/sendFile2', function (req, res) {
+  console.log(path.join(__dirname, '../Public/resources/alert_info.js'))
+  res.sendFile(path.join(__dirname, '../Public/resources/alert_info.js'))
 })
 
 // passing data in url -api: path

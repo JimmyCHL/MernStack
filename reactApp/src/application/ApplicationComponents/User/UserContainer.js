@@ -1,5 +1,10 @@
 import { connect } from 'react-redux' //helps react component to connect with store
-import { AddUserToStore } from '../../State/User/UserActions'
+import {
+  AddUserToStore,
+  SaveUserToDBUsingAxios,
+  SaveUserToDBUsingFetch,
+  SignOutUser,
+} from '../../State/User/UserActions'
 import UserComponent from './UserComponent.js' //we are importing component to be used to access
 
 //mapstatetoprops -- allows component to become subscriber
@@ -18,6 +23,15 @@ let mapDispatchToProps = (dispatch) => {
     addUser: (user) => {
       //action creator
       dispatch(AddUserToStore(user))
+    },
+    saveUserToDBUsingFetch: (user) => {
+      dispatch(SaveUserToDBUsingFetch(user))
+    },
+    saveUserToDBUsingAxios: (user) => {
+      dispatch(SaveUserToDBUsingAxios(user))
+    },
+    signOutUser: () => {
+      dispatch(SignOutUser())
     },
   }
 }
