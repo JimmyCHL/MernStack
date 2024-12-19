@@ -23,6 +23,7 @@ export const SaveUserToDBUsingFetch = (userObj) => {
   console.log('SaveUserToDBUsingFetch called')
   return (dispatch) => {
     fetch('http://localhost:3000/user/api/signinup', {
+      // uri - api path
       method: 'POST',
       headers: {
         Accept: 'application/json',

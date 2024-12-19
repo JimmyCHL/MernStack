@@ -11,6 +11,7 @@ export default class Home extends Component {
     super(props)
 
     this.state = {
+      title: 'Shop with below facilities',
       userName: 'Default User Name',
       address: 'Default Address',
       session: 'Default MERNStack',
@@ -179,7 +180,23 @@ export default class Home extends Component {
     console.log('Render method is called')
     return (
       <>
-        <h1>Home Component</h1>
+        <div className={'loadimage form'} style={{ border: '1px solid red' }}>
+          <h1>{this.state.title}</h1>
+          <b className="feature">{"Product Feature's :"}</b>
+          <ul>
+            <li>Sign up new users</li>
+            <li>Login existing users.</li>
+            <li>Allow user's to add to cart.</li>
+            <li>Save the user's cart.</li>
+            <li>Checkout and pay for items.</li>
+            <li>Allow users to cancel the order.</li>
+            <li>Allow users to reorder the cart.</li>
+            <li>Add products/items to create product collection.</li>
+            <li>Allow users to give ratings to each product.</li>
+            <li>Have notifications on top right with logout.</li>
+          </ul>
+        </div>
+        {/* <h1>Home Component</h1>
         <h2>
           {this.state.age}
           <hr />
@@ -187,12 +204,12 @@ export default class Home extends Component {
           <hr />
           {this.newAddress}
         </h2>
-        <h3>{this.state.user && this.state.user.session}</h3>
+        <h3>{this.state.user && this.state.user.session}</h3> */}
         {/* <button onClick={this.onclick}>Change First Name</button> */}
 
         {/* controlled way of building a component */}
 
-        <div className="form col-md-12">
+        {/* <div className="form col-md-12">
           <div className="form-control">
             <div className="col-md-3">
               <b>User Name</b>
@@ -228,7 +245,7 @@ export default class Home extends Component {
           </div>
         </div>
         {/* creating component in un-controlled way using ref keyword */}
-        <form className="form-control col-md-12" action="/api/loginuser" method="post" onSubmit={this.formSubmit}>
+        {/* <form className="form-control col-md-12" action="/api/loginuser" method="post" onSubmit={this.formSubmit}>
           <b>Address</b>
           <input
             type="text"
@@ -251,7 +268,7 @@ export default class Home extends Component {
         </form>
         <label>{this.state.address}</label>
         <hr />
-        <label>{this.state.session}</label>
+        <label>{this.state.session}</label>  */}
       </>
     )
   }

@@ -16,13 +16,10 @@ let UserReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_USER_TO_STORE:
       return { ...state, user: action.payload }
-      break
     case actionTypes.SIGN_OUT_USER:
       return initialState
-      break
     default:
       return state
-      break
   }
 }
 export default UserReducer
