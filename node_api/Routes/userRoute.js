@@ -17,6 +17,9 @@ userRouter.post('/api/signinup', (req, res) => {
       } //user doesn't exists so create one and create one - sign up
       else {
         let userSchemaObj = new userDataModel(req.body) //for new user
+        console.log('userSchemaObj', userSchemaObj)
+        console.log(typeof userSchemaObj.mobile)
+        console.log(typeof req.body.mobile)
         userSchemaObj
           .save()
           .then((newUser) => {
