@@ -10,6 +10,7 @@ import { persistReducer, persistStore } from 'redux-persist'
 import { combineReducers } from 'redux'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
+import { productReducer } from './Product/ProductReducer'
 import studentReducer from './Student/StudentReducer'
 import userReducer from './User/UserReducer'
 
@@ -18,13 +19,14 @@ const persistConfig = {
   key: 'root', // key to store in localStorage (or any storage)
   storage, // use localStorage by default
   whitelist: ['userReducer', 'studentReducer'], // optional: only persist specific reducers
-  blacklist: [], // optional: prevent persisting specific reducers
+  blacklist: ['productReducer'], // optional: prevent persisting specific reducers
 }
 
 //we can add multiple reducers and combine them togather to have one root reducer and add it to store
 let rootReducer = combineReducers({
   userReducer, //userReducer : userReducer
   studentReducer,
+  productReducer,
 })
 
 // Persisted reducer that wraps the rootReducer

@@ -6,6 +6,7 @@ import './app.css'
 import StudentContainer from './ApplicationComponents/Student/StudentContainer'
 // import UserContainer from './ApplicationComponents/User/UserContainer'
 // import UserHooks from './ApplicationComponents/User/UserHooksComponent'
+import { ProductForm } from './ApplicationComponents/Products/Components/ProductForm'
 import UserHooks from './ApplicationComponents/User/UserHooksRefComponent'
 import About from './CommonComponents/AboutComponent'
 import { AppCopy } from './CommonComponents/AppCopy'
@@ -44,6 +45,7 @@ export default class ApplicationComponent extends React.Component {
           <Route path="home" element={<Home />} />
           <Route path="login" element={<UserHooks />} />
           <Route path="studentLogin" element={<StudentContainer />} />
+          <Route path="/productForm" element={<ProductForm />} />
           <Route path="/app" element={<AppCopy />} />
           <Route path="/about" element={<About />} />
           <Route path="/about/:id" element={<About />} />

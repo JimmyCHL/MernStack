@@ -5,3 +5,6 @@ export const SIGN_OUT_USER = 'STORE.SIGNOUTUSER'
 
 //student
 export const ADD_STUDENT_TO_STORE = 'STORE.ADDSTUDENT'
+
+//product
+export const ADD_PRODUCT = 'STORE.ADDPRODUCT'

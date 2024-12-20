@@ -3,6 +3,7 @@ const app = express() // initializing the express application
 const defaultRoutes = require('./Routes/defaultRoute')
 const userRoutes = require('./Routes/userRoute')
 const studentRoutes = require('./Routes/studentRoute')
+const productRoutes = require('./Routes/productRoute')
 const s3 = require('./awsConfig')
 const cors = require('cors')
 
@@ -22,6 +23,8 @@ const adminApp = express() // initializing the express application
 const userApp = express()
 
 const studentApp = express()
+
+const productApp = express()
 
 //user, product, cart etc are the routes - examples
 
@@ -52,12 +55,16 @@ userApp.use('/', userRoutes) //redirecting all the calls having user in it to us
 
 studentApp.use('/', studentRoutes) //redirecting all the calls having student in it to student router
 
+productApp.use('/', productRoutes) //redirecting all the calls having product in it to product router
+
 // application mounting
 app.use('/admin', adminApp)
 
 app.use('/user', userApp)
 
 app.use('/student', studentApp)
+
+app.use('/product', productApp)
 
 app.use('/', defaultRoutes)
 
