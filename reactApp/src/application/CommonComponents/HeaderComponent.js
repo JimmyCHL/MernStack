@@ -40,21 +40,21 @@ const Header = (props) => {
         <NavLink to="/productForm" className="button" activeclassname="true">
           Product Form
         </NavLink>
-        <NavLink to="/app" className="button" activeclassname="true">
+        {/* <NavLink to="/app" className="button" activeclassname="true">
           AppCopy
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/about" className="button" activeclassname="true">
           About
         </NavLink>
-        <NavLink to="/about/2500" className="button" activeclassname="true">
+        {/* <NavLink to="/about/2500" className="button" activeclassname="true">
           About with Param
         </NavLink>
         <NavLink to="/aws/image" className="button" activeclassname="true">
           AW3 Image
-        </NavLink>
-        <NavLink to="/topics" className="button" activeclassname="true">
+        </NavLink> */}
+        {/* <NavLink to="/topics" className="button" activeclassname="true">
           Topics
-        </NavLink>
+        </NavLink> */}
       </div>
       <hr />
     </>
