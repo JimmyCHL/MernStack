@@ -8,3 +8,4 @@ export const ADD_STUDENT_TO_STORE = 'STORE.ADDSTUDENT'
 
 //product
 export const ADD_PRODUCT = 'STORE.ADDPRODUCT'
+export const fetchProducts = 'STORE.FETCHPRODUCTS'

@@ -8,6 +8,21 @@ export const ADD_PRODUCT = (product) => {
   }
 }
 
+export const fetchProductsFromServer = () => {
+  return (dispatch) => {
+    axios
+      .get('http://localhost:3000/product/api/getProducts')
+      .then((collection) => {
+        let products = collection.data
+        dispatch({
+          type: actionTypes.fetchProducts,
+          payload: products,
+        })
+      })
+      .catch((error) => console.log(error))
+  }
+}
+
 export const saveProductToServer = (product) => {
   return (dispatch) => {
     axios

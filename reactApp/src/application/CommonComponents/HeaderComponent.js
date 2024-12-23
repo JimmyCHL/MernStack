@@ -40,6 +40,9 @@ const Header = (props) => {
         <NavLink to="/productForm" className="button" activeclassname="true">
           Product Form
         </NavLink>
+        <NavLink to="/productsList" className="button" activeclassname="true">
+          Products List
+        </NavLink>
         {/* <NavLink to="/app" className="button" activeclassname="true">
           AppCopy
         </NavLink> */}

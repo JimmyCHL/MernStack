@@ -1,0 +1,11 @@
+#cardContainer {
+  ul {
+    list-style-type: none;
+    padding-left: 0; /* Optional, to remove any left padding */
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: lightpink;
+  }
+}
