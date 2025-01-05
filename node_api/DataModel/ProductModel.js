@@ -8,6 +8,7 @@ const productSchema = new schemaObj({
   desc: { type: String, required: true },
   rate: { type: Number, required: true, min: 0, max: 5 },
   category: { type: String, required: true },
+  qty: { type: Number, default: 1 },
 })
 
 const ProductModal = mongooseObj.model('product', productSchema)
