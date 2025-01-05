@@ -14,10 +14,10 @@ const StudentReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_STUDENT_TO_STORE:
       return { ...state, student: action.payload }
-      break
+    case actionTypes.SIGN_OUT_STUDENT:
+      return initialState
     default:
       return state
-      break
   }
 }
 export default StudentReducer

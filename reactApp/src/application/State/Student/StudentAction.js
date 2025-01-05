@@ -8,6 +8,12 @@ export const AddStudentToStore = (student) => {
   }
 }
 
+export const SignOutStudent = () => {
+  return {
+    type: actionTypes.SIGN_OUT_STUDENT,
+  }
+}
+
 export const SaveStudentToServer = (studentObj) => {
   return (dispatch) => {
     axios
