@@ -4,6 +4,7 @@ const defaultRoutes = require('./Routes/defaultRoute')
 const userRoutes = require('./Routes/userRoute')
 const studentRoutes = require('./Routes/studentRoute')
 const productRoutes = require('./Routes/productRoute')
+const cartRoutes = require('./Routes/cartRoute')
 const s3 = require('./awsConfig')
 const cors = require('cors')
 
@@ -25,6 +26,8 @@ const userApp = express()
 const studentApp = express()
 
 const productApp = express()
+
+const cartApp = express()
 
 //user, product, cart etc are the routes - examples
 
@@ -57,6 +60,8 @@ studentApp.use('/', studentRoutes) //redirecting all the calls having student in
 
 productApp.use('/', productRoutes) //redirecting all the calls having product in it to product router
 
+cartApp.use('/', cartRoutes) //redirecting all the calls having cart in it to cart router
+
 // application mounting
 app.use('/admin', adminApp)
 
@@ -65,6 +70,8 @@ app.use('/user', userApp)
 app.use('/student', studentApp)
 
 app.use('/product', productApp)
+
+app.use('/cart', cartApp)
 
 app.use('/', defaultRoutes)
 

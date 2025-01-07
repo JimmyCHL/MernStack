@@ -1,11 +1,40 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { saveCartForCheckout } from '../../../State/Cart/CartAction'
 import { cartSelector } from '../../../State/Cart/CartSelector'
+import { userSelector } from '../../../State/User/UserSelector'
 import { CartItem } from './CartItem'
+import { CartSummary } from './CartSummary'
 
 export const Cart = ({ readOnly }) => {
+  const user = useSelector(userSelector)
   const cartList = useSelector(cartSelector)
+  const dispatch = useDispatch()
+
+  console.log('user', user._id)
   console.log('cartList', cartList)
+
+  const clickToSaveCart = (cart, userId) => {
+    if (userId) {
+      alert('cart will be saved')
+      dispatch(saveCartForCheckout({ cart, userId }))
+    } else {
+      alert("You're not logged-in!! Please login to help you in furture with your selected products!!")
+      //add a function using navigation hook to re-direct to login page
+    }
+  }
+
+  // calculate total amount and total count of products in cart
+  const summary = useMemo(() => {
+    let count = 0
+    let amount = 0
+    cartList.forEach((item) => {
+      //parseInt - to convert string to number (as qty and price could be string or number in some situations, so i am casting it to String and then to Number)
+      amount += parseInt(String(item.qty)) * parseInt(String(item.price))
+      count += parseInt(String(item.qty))
+    })
+    return { count, amount }
+  }, [cartList])
 
   return (
     <div className="col-md-12">
@@ -37,7 +66,7 @@ export const Cart = ({ readOnly }) => {
               })}
             </tbody>
           </table>
-          {/* <CartSummary data={recalculate(cartList)} readOnly={readOnly} /> */}
+          <CartSummary data={summary} readOnly={readOnly} />
           {readOnly ? (
             <></>
           ) : (

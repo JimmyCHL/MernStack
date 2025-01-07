@@ -1,11 +1,12 @@
+import axios from 'axios'
 import * as actionTypes from '../ActionTypes'
 
 /**  Add Item to Cart */
-export const ADD_PRODUCT_TO_CART = (product) => {
+export const ADD_PRODUCT_TO_CART = (product, showAlert = true) => {
   return (dispatch, getState) => {
     const cartList = getState().cartReducer
     if (cartList.find((cart) => cart._id === product._id)) {
-      alert('Product already added to cart')
+      if (showAlert) alert('Product already added to cart')
       return
     }
     alert('Product added to cart')
@@ -53,41 +54,42 @@ export const EMPTY_CART = () => {
   }
 }
 
-// export const fetchUserCart = (userId) => {
-//   console.log('Cart ')
-//   return function (dispatch) {
-//     //dispatch(loading(true));
-//     axios
-//       .post('http://localhost:9000/cart/api/getusercart', userId)
-//       .then((allCartData) => {
-//         let cartList = allCartData.data
-//         console.log('get products response ', cartList)
-//         //dispatch(loading(false));
-//         //need to do this in loop
-//         dispatch(AddItemToCart(cartList))
-//       })
-//       .catch((err) => {
-//         //dispatch(loading(false));
-//         console.log('Error While Saving Product', err)
-//       })
-//   }
-// }
+// fetch current logged in user cart from mongo db
+export const fetchUserCart = (userId) => {
+  console.log('Cart ')
+  return function (dispatch) {
+    //dispatch(loading(true));
+    axios
+      .post('http://localhost:3000/cart/api/getUserCart', { userId })
+      .then((collection) => {
+        const cartList = collection.data
+        console.log('get cartList response ', cartList)
+        //dispatch(loading(false));
+        // loop through the cartList and add each item to cart
+        for (const item of cartList) {
+          console.log('item in for of', item)
+          dispatch(ADD_PRODUCT_TO_CART(item, false))
+        }
+      })
+      .catch((err) => {
+        //dispatch(loading(false));
+        console.log('Error While Fetch Cart', err)
+      })
+  }
+}
 
 // save cart to mongo db for checkout through api to server
-// export const saveCartForCheckout = (product) => {
-//   console.log('Product ', product)
-//   return function (dispatch) {
-//     //dispatch(loading(true));
-//     axios
-//       .post('http://localhost:9000/cart/api/saveCart', product)
-//       .then((allData) => {
-//         let productresp = allData.data
-//         console.log('product save response ', productresp)
-//         //dispatch(loading(false));
-//         dispatch(fetchProducts()) //fetched at the time of save it self
-//       })
-//       .catch((err) => {
-//         console.log('Error While Saving Product', err)
-//       })
-//   }
-// }
+export const saveCartForCheckout = (userCartObject) => {
+  return function (dispatch) {
+    //dispatch(loading(true));
+    axios
+      .post('http://localhost:3000/cart/api/saveUserCart', userCartObject)
+      .then((collection) => {
+        //dispatch(loading(false));
+        console.log('Cart Saved Successfully', collection.data)
+      })
+      .catch((err) => {
+        console.log('Error While Saving Cart', err)
+      })
+  }
+}
