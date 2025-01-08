@@ -48,6 +48,10 @@ cartRouter.post('/api/getUserCart', (req, res) => {
   // return cartList
   CartDataModel.findOne({ userId })
     .then((obj) => {
+      if (!obj) {
+        res.json([])
+        return
+      }
       res.json(obj.cart)
     })
     .catch((err) => {

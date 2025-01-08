@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 import * as actionTypes from '../ActionTypes'
-import { fetchUserCart } from '../Cart/CartAction'
+import { EMPTY_CART, fetchUserCart } from '../Cart/CartAction'
 
 //action accepts payload value/object to be used in user reducer switch
 export const AddUserToStore = (user) => {
@@ -13,8 +13,13 @@ export const AddUserToStore = (user) => {
 }
 
 export const SignOutUser = () => {
-  return {
-    type: actionTypes.SIGN_OUT_USER,
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.SIGN_OUT_USER,
+    })
+
+    //clear the cart when user signout
+    dispatch(EMPTY_CART())
   }
 }
 
@@ -49,6 +54,8 @@ export const SaveUserToDBUsingFetch = (userObj) => {
 export const SaveUserToDBUsingAxios = (userObj) => {
   console.log('SaveUserToDBUsingAxios called')
   return (dispatch) => {
+    // should clean the existing cart when you login new user or re-login
+    dispatch(EMPTY_CART())
     axios
       .post(
         'http://localhost:3000/user/api/signinup', //uri or end point of singninup api

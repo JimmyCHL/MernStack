@@ -5,11 +5,11 @@ import * as actionTypes from '../ActionTypes'
 export const ADD_PRODUCT_TO_CART = (product, showAlert = true) => {
   return (dispatch, getState) => {
     const cartList = getState().cartReducer
-    if (cartList.find((cart) => cart._id === product._id)) {
+    if (cartList.find((prod) => prod._id === product._id)) {
       if (showAlert) alert('Product already added to cart')
       return
     }
-    alert('Product added to cart')
+    if (showAlert) alert('Product added to cart')
     dispatch({
       type: actionTypes.ADD_PRODUCT_TO_CART,
       payload: { product },
