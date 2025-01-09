@@ -93,3 +93,19 @@ export const saveCartForCheckout = (userCartObject) => {
       })
   }
 }
+
+// reset cart from mongo db for checkout through api to server
+export const removeCartAfterCheckout = (userCartObject) => {
+  return function (dispatch) {
+    //dispatch(loading(true));
+    axios
+      .post('http://localhost:3000/cart/api/saveUserCart', userCartObject)
+      .then((collection) => {
+        //dispatch(loading(false));
+        console.log('Old cart clear', collection.data)
+      })
+      .catch((err) => {
+        console.log('Error While reset Cart', err)
+      })
+  }
+}

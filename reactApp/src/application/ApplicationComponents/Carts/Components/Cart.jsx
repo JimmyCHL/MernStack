@@ -1,16 +1,18 @@
-import React, { useMemo } from 'react'
+import React, { Fragment, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { saveCartForCheckout } from '../../../State/Cart/CartAction'
 import { cartSelector } from '../../../State/Cart/CartSelector'
 import { userSelector } from '../../../State/User/UserSelector'
 import { CartItem } from './CartItem'
 import { CartSummary } from './CartSummary'
 
-export const Cart = ({ readOnly }) => {
+export const Cart = ({ readOnly = false, processCallback }) => {
   const user = useSelector(userSelector)
   const cartList = useSelector(cartSelector)
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
+  console.log(readOnly)
   console.log('user', user._id)
   console.log('cartList', cartList)
 
@@ -37,11 +39,11 @@ export const Cart = ({ readOnly }) => {
   }, [cartList])
 
   return (
-    <div className="col-md-12">
-      <h2>Cart Component</h2>
+    <div style={{ margin: '20px' }}>
+      {!readOnly && <h2>Cart Component</h2>}
       {cartList && cartList.length > 0 ? (
         <>
-          <table>
+          <table className="col-sm-12 col-md-12">
             <thead>
               <tr>
                 <th>Name</th>
@@ -50,29 +52,27 @@ export const Cart = ({ readOnly }) => {
                 <th>Rating</th>
                 <th>Quantity</th>
                 <th>Total</th>
-                {readOnly ? (
-                  '' //by default false as boolean default is false
-                ) : (
-                  <>
+                {!readOnly && (
+                  <Fragment>
                     <th>Remove</th>
                     <th>Edit</th>
-                  </>
+                  </Fragment>
                 )}
               </tr>
             </thead>
             <tbody>
               {cartList.map((item) => {
-                return <CartItem item={item} key={item._id} />
+                return <CartItem item={item} key={item._id} readOnly={readOnly} />
               })}
             </tbody>
           </table>
           <CartSummary data={summary} readOnly={readOnly} />
           {readOnly ? (
-            <></>
+            <button onClick={processCallback}>Confirm Payment</button>
           ) : (
             <>
               <button onClick={() => clickToSaveCart(cartList, user._id)}>Save Cart</button>
-              <button onClick={() => {}}>Go To Checkout</button>
+              <button onClick={() => navigate('/checkout')}>Go To Checkout</button>
             </>
           )}
         </>

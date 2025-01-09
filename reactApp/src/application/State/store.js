@@ -19,8 +19,8 @@ import userReducer from './User/UserReducer'
 const persistConfig = {
   key: 'root', // key to store in localStorage (or any storage)
   storage, // use localStorage by default
-  whitelist: ['userReducer', 'studentReducer'], // optional: only persist specific reducers
-  blacklist: ['productReducer', 'cartReducer'], // optional: prevent persisting specific reducers
+  whitelist: ['userReducer', 'studentReducer', 'cartReducer'], // optional: only persist specific reducers
+  blacklist: ['productReducer'], // optional: prevent persisting specific reducers
 }
 
 //we can add multiple reducers and combine them togather to have one root reducer and add it to store
