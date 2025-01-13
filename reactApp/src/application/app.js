@@ -8,6 +8,7 @@ import StudentContainer from './ApplicationComponents/Student/StudentContainer'
 // import UserHooks from './ApplicationComponents/User/UserHooksComponent'
 import { Cart } from './ApplicationComponents/Carts/Components/Cart.jsx'
 import { Checkout } from './ApplicationComponents/Checkout/components/Checkout.jsx'
+import { Coupon } from './ApplicationComponents/Coupon/components/Coupon.jsx'
 import { ProductForm } from './ApplicationComponents/Products/Components/ProductForm'
 import { ProductScreen } from './ApplicationComponents/Products/Components/ProductScreen'
 import UserHooks from './ApplicationComponents/User/UserHooksRefComponent'
@@ -49,6 +50,7 @@ export default class ApplicationComponent extends React.Component {
           <Route path="login" element={<UserHooks />} />
           <Route path="studentLogin" element={<StudentContainer />} />
           <Route path="/productForm" element={<ProductForm />} />
+          <Route path="/couponGeneration" element={<Coupon />} />
           <Route path="/productsList" element={<ProductScreen />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />

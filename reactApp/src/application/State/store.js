@@ -11,6 +11,7 @@ import { combineReducers } from 'redux'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
 import { cartReducer } from './Cart/CartReducer'
+import { couponReducer } from './Coupon/CouponReducer'
 import { productReducer } from './Product/ProductReducer'
 import studentReducer from './Student/StudentReducer'
 import userReducer from './User/UserReducer'
@@ -29,6 +30,7 @@ let rootReducer = combineReducers({
   studentReducer,
   productReducer,
   cartReducer,
+  couponReducer,
 })
 
 // Persisted reducer that wraps the rootReducer
