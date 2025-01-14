@@ -3,6 +3,7 @@
 import axios from 'axios'
 import * as actionTypes from '../ActionTypes'
 import { EMPTY_CART, fetchUserCart } from '../Cart/CartAction'
+import { EMPTY_COUPON } from '../Coupon/CouponAction'
 
 //action accepts payload value/object to be used in user reducer switch
 export const AddUserToStore = (user) => {
@@ -20,6 +21,8 @@ export const SignOutUser = () => {
 
     //clear the cart when user signout
     dispatch(EMPTY_CART())
+    //clear the coupon when user signout
+    dispatch(EMPTY_COUPON())
   }
 }
 

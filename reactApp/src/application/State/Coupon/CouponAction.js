@@ -7,3 +7,10 @@ export const ADD_COUPON = (couponDigits) => {
     payload: couponDigits,
   }
 }
+
+// Empty the coupon from the store
+export const EMPTY_COUPON = () => {
+  return {
+    type: actionTypes.EMPTY_COUPON,
+  }
+}

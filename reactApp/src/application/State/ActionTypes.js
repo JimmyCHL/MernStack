@@ -19,3 +19,4 @@ export const EMPTY_CART = 'CART.EMPTY_CART'
 
 //coupon
 export const ADD_COUPON = 'STORE.ADDCOUPON'
+export const EMPTY_COUPON = 'STORE.EMPTYCOUPON'
