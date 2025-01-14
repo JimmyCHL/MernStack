@@ -67,16 +67,14 @@ const Header = (props) => {
           {
             // only admin can see the product form and Coupon Generation
             usrName === 'admin' && (
-              <>
-                <NavLink to="/productForm" className="button" activeclassname="true">
-                  Product Form
-                </NavLink>
-                <NavLink to="/couponGeneration" className="button" activeclassname="true">
-                  Coupon Generation
-                </NavLink>
-              </>
+              <NavLink to="/productForm" className="button" activeclassname="true">
+                Product Form
+              </NavLink>
             )
           }
+          <NavLink to="/couponGeneration" className="button" activeclassname="true">
+            Coupon Generation
+          </NavLink>
           <NavLink to="/productsList" className="button" activeclassname="true">
             Products List
           </NavLink>

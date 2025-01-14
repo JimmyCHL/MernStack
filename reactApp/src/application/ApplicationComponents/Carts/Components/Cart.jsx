@@ -7,7 +7,7 @@ import { userSelector } from '../../../State/User/UserSelector'
 import { CartItem } from './CartItem'
 import { CartSummary } from './CartSummary'
 
-export const Cart = ({ readOnly = false, processCallback }) => {
+export const Cart = ({ readOnly = false, processCallback, coupon = '' }) => {
   const user = useSelector(userSelector)
   const cartList = useSelector(cartSelector)
   const dispatch = useDispatch()
@@ -66,7 +66,7 @@ export const Cart = ({ readOnly = false, processCallback }) => {
               })}
             </tbody>
           </table>
-          <CartSummary data={summary} readOnly={readOnly} />
+          <CartSummary data={summary} readOnly={readOnly} coupon={coupon} />
           {readOnly ? (
             <button onClick={processCallback}>Confirm Payment</button>
           ) : (

@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { EMPTY_CART, removeCartAfterCheckout } from '../../../State/Cart/CartAction'
+import { couponSelector } from '../../../State/Coupon/CouponSelector'
 import { userSelector } from '../../../State/User/UserSelector'
 import { Cart } from '../../Carts/Components/Cart'
 import '../CSS/Checkout.css'
 
 export const Checkout = () => {
   const user = useSelector(userSelector)
+  const coupon = useSelector(couponSelector)
   const dispatch = useDispatch()
   const [showPaymentSuccess, setShowPaymentSuccess] = useState(false)
 
@@ -33,7 +35,7 @@ export const Checkout = () => {
             <p>Mobile: {user.mobile}</p>
             <p>We will delivery all products to this address: {user.street}</p>
 
-            <Cart readOnly={true} processCallback={checkoutCallback} />
+            <Cart readOnly={true} processCallback={checkoutCallback} coupon={coupon} />
           </>
         )}
       </div>
