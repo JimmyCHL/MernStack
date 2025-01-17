@@ -7,6 +7,7 @@ const productRoutes = require('./Routes/productRoute')
 const cartRoutes = require('./Routes/cartRoute')
 const s3 = require('./awsConfig')
 const cors = require('cors')
+const orderRouter = require('./Routes/orderRoute')
 
 /**
  * globalThis is a standardized way to access the global object in JavaScript, regardless of the environment your code is running in (e.g., browser, Node.js, Web Workers).
@@ -28,6 +29,8 @@ const studentApp = express()
 const productApp = express()
 
 const cartApp = express()
+
+const orderApp = express()
 
 //user, product, cart etc are the routes - examples
 
@@ -62,6 +65,8 @@ productApp.use('/', productRoutes) //redirecting all the calls having product in
 
 cartApp.use('/', cartRoutes) //redirecting all the calls having cart in it to cart router
 
+orderApp.use('/', orderRouter)
+
 // application mounting
 app.use('/admin', adminApp)
 
@@ -72,6 +77,8 @@ app.use('/student', studentApp)
 app.use('/product', productApp)
 
 app.use('/cart', cartApp)
+
+app.use('/order', orderApp)
 
 app.use('/', defaultRoutes)
 

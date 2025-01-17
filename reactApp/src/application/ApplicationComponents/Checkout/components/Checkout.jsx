@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { EMPTY_CART, removeCartAfterCheckout } from '../../../State/Cart/CartAction'
 import { couponSelector } from '../../../State/Coupon/CouponSelector'
+import { addOrder } from '../../../State/Order/OrderAction'
 import { userSelector } from '../../../State/User/UserSelector'
 import { Cart } from '../../Carts/Components/Cart'
 import '../CSS/Checkout.css'
@@ -13,10 +13,8 @@ export const Checkout = () => {
   const [showPaymentSuccess, setShowPaymentSuccess] = useState(false)
 
   const checkoutCallback = () => {
-    setShowPaymentSuccess(true)
-    // should clear the cart after payment success
-    dispatch(EMPTY_CART())
-    dispatch(removeCartAfterCheckout({ cart: [], userId: user._id }))
+    //Place Order Call
+    dispatch(addOrder(user._id, coupon, () => setShowPaymentSuccess(true)))
   }
 
   return (
@@ -24,8 +22,8 @@ export const Checkout = () => {
       <div id="checkoutContainer">
         {showPaymentSuccess ? (
           <>
-            <h2>~ Payment Component ~</h2>
-            <h3>Thankyou for the payment, your items under process!</h3>
+            <h2>~ Congratulation, High Five ~</h2>
+            <h3>Thank you for the payment, We are preparing your order!</h3>
           </>
         ) : (
           <>

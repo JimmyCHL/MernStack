@@ -68,7 +68,7 @@ export const Cart = ({ readOnly = false, processCallback, coupon = '' }) => {
           </table>
           <CartSummary data={summary} readOnly={readOnly} coupon={coupon} />
           {readOnly ? (
-            <button onClick={processCallback}>Confirm Payment</button>
+            <button onClick={processCallback}>Confirm Payment and Place Order</button>
           ) : (
             <>
               <button onClick={() => clickToSaveCart(cartList, user._id)}>Save Cart</button>
