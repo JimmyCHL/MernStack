@@ -19,6 +19,21 @@ const FETCH_ORDERS = (orders) => {
   }
 }
 
+/** Empty orders */
+export const EMPTY_ORDER = () => {
+  return {
+    type: actionTypes.EMPTY_ORDER,
+  }
+}
+
+/** Update orders */
+export const UPDATE_ORDERS = (orders) => {
+  return {
+    type: actionTypes.UPDATE_ORDERS,
+    payload: orders,
+  }
+}
+
 // add order to database
 export const addOrder = (userId, coupon, callback) => {
   return function (dispatch, getState) {
@@ -55,6 +70,33 @@ export const getOrders = (userId) => {
       .then((response) => {
         const orders = response.data
         dispatch(FETCH_ORDERS(orders))
+      })
+      .catch((err) => {
+        console.log('There was an error:', err)
+      })
+  }
+}
+
+// cancel order by order id
+export const cancelOrder = (orderId, callback) => {
+  return function (dispatch, getState) {
+    axios
+      .delete(`http://localhost:3000/order/api/cancelOrder`, { data: { orderId } })
+      .then((response) => {
+        const order = response.data
+        if (!order) {
+          alert('Order not found')
+          return
+        }
+        const orders = getState().orderReducer
+        const updatedOrders = orders.map((item) => {
+          if (item._id === order._id) {
+            return order
+          }
+          return item
+        })
+        dispatch(UPDATE_ORDERS(updatedOrders))
+        callback()
       })
       .catch((err) => {
         console.log('There was an error:', err)

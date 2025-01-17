@@ -1,6 +1,6 @@
 const express = require('express')
 const orderRouter = express.Router({ strict: true, caseSensitive: true })
-const OrderModel = require('../DataModel/OrderModel')
+const { OrderModel, orderStatusEnum } = require('../DataModel/OrderModel')
 
 //order api's
 orderRouter.post('/api/createOrder', (req, res) => {
@@ -11,6 +11,11 @@ orderRouter.post('/api/createOrder', (req, res) => {
 orderRouter.post('/api/fetchOrdersByUserId', (req, res) => {
   const userId = req.body.userId
   fetchOrdersByUserId(res, userId)
+})
+
+orderRouter.delete('/api/cancelOrder', (req, res) => {
+  const orderId = req.body.orderId
+  cancelOrder(res, orderId)
 })
 
 module.exports = orderRouter
@@ -61,5 +66,25 @@ const fetchOrdersByUserId = async (res, userId) => {
   } catch (err) {
     console.error(err)
     res.status(500).json({ message: 'Error fetching orders' })
+  }
+}
+
+/** cancel order by order id */
+const cancelOrder = async (res, orderId) => {
+  try {
+    const order = await OrderModel.findOneAndUpdate(
+      { _id: orderId },
+      {
+        $set: { status: orderStatusEnum.cancelled },
+      },
+      {
+        new: true,
+        populate: ['user', 'items.item'],
+      }
+    )
+    res.send(order)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ message: 'Error cancelling order' })
   }
 }

@@ -69,4 +69,4 @@ orderSchema.pre('save', async function (next) {
 })
 
 const OrderModel = mongooseObj.model('order', orderSchema)
-module.exports = OrderModel
+module.exports = { OrderModel, orderStatusEnum }

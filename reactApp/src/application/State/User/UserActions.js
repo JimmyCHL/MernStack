@@ -4,6 +4,7 @@ import axios from 'axios'
 import * as actionTypes from '../ActionTypes'
 import { EMPTY_CART, fetchUserCart } from '../Cart/CartAction'
 import { EMPTY_COUPON } from '../Coupon/CouponAction'
+import { EMPTY_ORDER, getOrders } from '../Order/OrderAction'
 
 //action accepts payload value/object to be used in user reducer switch
 export const AddUserToStore = (user) => {
@@ -23,6 +24,8 @@ export const SignOutUser = () => {
     dispatch(EMPTY_CART())
     //clear the coupon when user signout
     dispatch(EMPTY_COUPON())
+    //clear the order when user signout
+    dispatch(EMPTY_ORDER())
   }
 }
 
@@ -50,6 +53,8 @@ export const SaveUserToDBUsingFetch = (userObj) => {
         dispatch(AddUserToStore(userData))
         //get current user cart from server
         dispatch(fetchUserCart(userData._id))
+        //get current user orders from server
+        dispatch(getOrders(loggedUser._id))
       })
       .catch((error) => console.log(error))
   }
@@ -71,6 +76,8 @@ export const SaveUserToDBUsingAxios = (userObj) => {
         dispatch(AddUserToStore(loggedUser))
         //get current user cart from server
         dispatch(fetchUserCart(loggedUser._id))
+        //get current user orders from server
+        dispatch(getOrders(loggedUser._id))
       })
       .catch((error) => console.log(error))
   }

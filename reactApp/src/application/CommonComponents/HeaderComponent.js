@@ -84,6 +84,9 @@ const Header = (props) => {
           {/* <NavLink to="/app" className="button" activeclassname="true">
           AppCopy
         </NavLink> */}
+          <NavLink to="/orders" className="button" activeclassname="true">
+            Orders
+          </NavLink>
           <NavLink to="/about" className="button" activeclassname="true">
             About
           </NavLink>

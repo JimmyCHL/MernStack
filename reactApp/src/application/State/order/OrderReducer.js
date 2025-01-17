@@ -9,6 +9,10 @@ export const orderReducer = (state = initialState, action) => {
       return [action.payload, ...state]
     case actionTypes.FETCH_ORDERS:
       return action.payload
+    case actionTypes.EMPTY_ORDER:
+      return initialState
+    case actionTypes.UPDATE_ORDERS:
+      return action.payload
     default:
       return state
   }
