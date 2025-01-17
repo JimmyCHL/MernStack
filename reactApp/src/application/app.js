@@ -56,6 +56,7 @@ export default class ApplicationComponent extends React.Component {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/orders" element={<OrderList />} />
+          <Route path="/cancelled-orders" element={<OrderList cancelledOrderOnly />} />
           <Route path="/app" element={<AppCopy />} />
           <Route path="/about" element={<About />} />
           <Route path="/about/:id" element={<About />} />

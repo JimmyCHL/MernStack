@@ -1,24 +1,32 @@
 import { format } from 'date-fns'
-import React from 'react'
+import { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { cancelOrder } from '../../../State/Order/OrderAction'
 import { ordersSelector } from '../../../State/Order/OrderSelector'
 
-export const OrderList = () => {
+export const OrderList = ({ cancelledOrderOnly = false }) => {
   const orders = useSelector(ordersSelector)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  console.log(orders)
 
   // Cancel order handler
   const cancelOrderHandler = ({ _id, orderNumber }) => {
     dispatch(cancelOrder(_id, () => alert(`Order ${orderNumber} has been cancelled!`)))
   }
 
+  const displayOrders = useMemo(
+    () =>
+      cancelledOrderOnly
+        ? orders.filter((order) => order.status === 'cancelled')
+        : orders.filter((order) => order.status !== 'cancelled'),
+    [cancelledOrderOnly]
+  )
+  console.log('displayOrders', displayOrders)
+
   return (
     <div style={{ margin: '20px' }}>
-      {orders.length > 0 ? (
+      {displayOrders.length > 0 ? (
         <table className="col-sm-12 col-md-12">
           <thead>
             <tr>
@@ -33,15 +41,19 @@ export const OrderList = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((item) => (
+            {displayOrders.map((item) => (
               <tr key={item._id}>
                 <td>{item.orderNumber}</td>
                 <td>{format(new Date(item.orderDate), 'MM/dd/yyyy hh:mm a')}</td>
                 <td>{item.items.length}</td>
                 <td>{item.discount ? `${item.discount.code} ${item.discount.percentage}%` : 'No Discount'}</td>
                 <td>${item.totalAmount}</td>
-                {/* //TODO: Need to change to Delivered after 48 hours */}
-                <td>{item.status.toUpperCase()}</td>
+                {/* //TODO: Need to change to Delivered after 48 hours, right now we don't update in database, we just only update in UI on fly. */}
+                <td>
+                  {item.status === 'cancelled' || canCancel(item.orderDate, 48)
+                    ? item.status.toUpperCase()
+                    : 'DELIVERED'}
+                </td>
                 {/* <td>
                   <button onClick={() => navigate(`/order/${item._id}`)}>View</button>
                 </td> */}
@@ -50,7 +62,11 @@ export const OrderList = () => {
                     onClick={() => cancelOrderHandler(item)}
                     disabled={item.status === 'cancelled' || !canCancel(item.orderDate, 48)}
                   >
-                    Cancel
+                    {item.status === 'cancelled'
+                      ? 'Cancelled'
+                      : canCancel(item.orderDate, 48)
+                      ? 'Cancel'
+                      : 'Not Available'}
                   </button>
                 </td>
               </tr>
