@@ -41,7 +41,13 @@ const createOrder = (res, userId, cart, discount) => {
   order
     .save()
     .then((data) => {
-      res.json(data)
+      // After saving, find the order by ID and populate the references
+      return OrderModel.findById(data._id)
+        .populate('user') // Populate the 'user' reference
+        .populate('items.item') // Populate the 'items.item' reference
+    })
+    .then((data) => {
+      res.status(200).json(data)
     })
     .catch((err) => {
       res.status(500).json({ message: err.message })
