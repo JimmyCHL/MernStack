@@ -13,6 +13,8 @@ export const cartReducer = (state = initialState, action) => {
       return state.filter((item) => item._id != action.payload.productId)
     case actionTypes.EMPTY_CART:
       return initialState
+    case actionTypes.MERGE_CART:
+      return action.payload.mergedCart
     default:
       return state
   }

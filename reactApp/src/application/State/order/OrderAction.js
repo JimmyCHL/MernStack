@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as actionTypes from '../ActionTypes'
-import { EMPTY_CART, removeCartAfterCheckout } from '../Cart/CartAction'
+import { EMPTY_CART, MERGE_CART, removeCartAfterCheckout } from '../Cart/CartAction'
 import { EMPTY_COUPON } from '../Coupon/CouponAction'
 
 /** Add order action */
@@ -101,5 +101,29 @@ export const cancelOrder = (orderId, callback) => {
       .catch((err) => {
         console.log('There was an error:', err)
       })
+  }
+}
+
+/** reorder order by order order items (will be added to cart) */
+export const reOrder = (orderItems, callback) => {
+  return function (dispatch, getState) {
+    const cart = getState().cartReducer
+    // need to implement deepClone
+    const newCart = cart.map((cartItem) => JSON.parse(JSON.stringify(cartItem)))
+
+    // loop through orderItems and add to cart or update qty
+    orderItems.forEach((orderItem) => {
+      const productId = orderItem.item._id
+      const cartItem = newCart.find((cartItem) => cartItem._id === productId)
+
+      if (cartItem) {
+        cartItem.qty += orderItem.quantity
+      } else {
+        newCart.push({ ...orderItem.item, qty: orderItem.quantity })
+      }
+    })
+
+    dispatch(MERGE_CART(newCart))
+    callback()
   }
 }

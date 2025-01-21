@@ -54,6 +54,14 @@ export const EMPTY_CART = () => {
   }
 }
 
+/**  Merge Cart */
+export const MERGE_CART = (mergedCart) => {
+  return {
+    type: actionTypes.MERGE_CART,
+    payload: { mergedCart },
+  }
+}
+
 // fetch current logged in user cart from mongo db
 export const fetchUserCart = (userId) => {
   console.log('Cart ')

@@ -1,28 +1,20 @@
 import { useMemo } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { cancelOrder } from '../../../State/Order/OrderAction'
 import { ordersSelector } from '../../../State/Order/OrderSelector'
 import '../CSS/OrderList.css'
-import { OrderItem } from './OrderItem'
+import { OrderRow } from './OrderRow'
 
 export const OrderList = ({ cancelledOrderOnly = false }) => {
   const orders = useSelector(ordersSelector)
-  const dispatch = useDispatch()
   const navigate = useNavigate()
-
-  // Cancel order handler
-  const cancelOrderHandler = ({ _id, orderNumber }, evt) => {
-    evt.stopPropagation()
-    dispatch(cancelOrder(_id, () => alert(`Order ${orderNumber} has been cancelled!`)))
-  }
 
   const displayOrders = useMemo(
     () =>
       cancelledOrderOnly
         ? orders.filter((order) => order.status === 'cancelled')
         : orders.filter((order) => order.status !== 'cancelled'),
-    [cancelledOrderOnly, orders]
+    [cancelledOrderOnly, orders] // Should always listen to the changes of dependency to recompute the value
   )
   console.log('displayOrders', displayOrders)
 
@@ -38,12 +30,12 @@ export const OrderList = ({ cancelledOrderOnly = false }) => {
               <th>Coupon</th>
               <th>Total</th>
               <th>Status</th>
-              <th>Cancel</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {displayOrders.map((item) => (
-              <OrderItem key={item._id} cancelOrderHandler={cancelOrderHandler} item={item} />
+              <OrderRow key={item._id} item={item} />
             ))}
           </tbody>
         </table>

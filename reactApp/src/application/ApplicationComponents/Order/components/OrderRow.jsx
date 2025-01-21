@@ -1,9 +1,27 @@
 import { format } from 'date-fns'
-import { useState } from 'react'
+import { memo, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { cancelOrder, reOrder } from '../../../State/Order/OrderAction'
 import '../CSS/OrderList.css'
 
-export const OrderItem = ({ item, cancelOrderHandler }) => {
+export const OrderRow = memo(({ item }) => {
+  // item here mean each order
   const [open, setOpen] = useState(false)
+  const dispatch = useDispatch()
+
+  // right now only cancel and reorder is allowed
+  const cancelAvailableStill = canCancel(item.orderDate, 48) && item.status !== 'cancelled'
+
+  // Cancel order and re-order handler
+  const actionHandler = ({ _id, orderNumber, items }, evt) => {
+    evt.stopPropagation()
+    if (cancelAvailableStill) {
+      dispatch(cancelOrder(_id, () => alert(`Order ${orderNumber} has been cancelled!`)))
+    } else {
+      dispatch(reOrder(items, () => alert(`Order ${orderNumber} has been reordered and added to your cart!`)))
+    }
+  }
+
   return (
     <>
       <tr key={item._id} onClick={() => setOpen((pre) => !pre)} className="order-row">
@@ -17,12 +35,7 @@ export const OrderItem = ({ item, cancelOrderHandler }) => {
           {item.status === 'cancelled' || canCancel(item.orderDate, 48) ? item.status.toUpperCase() : 'DELIVERED'}
         </td>
         <td>
-          <button
-            onClick={(evt) => cancelOrderHandler(item, evt)}
-            disabled={item.status === 'cancelled' || !canCancel(item.orderDate, 48)}
-          >
-            {item.status === 'cancelled' ? 'Cancelled' : canCancel(item.orderDate, 48) ? 'Cancel' : 'Not Available'}
-          </button>
+          <button onClick={(evt) => actionHandler(item, evt)}>{cancelAvailableStill ? 'Cancel' : 'ReOrder'}</button>
         </td>
       </tr>
 
@@ -46,7 +59,7 @@ export const OrderItem = ({ item, cancelOrderHandler }) => {
                     <td>${product.price}</td>
                     <td>{product.quantity}</td>
                     <td>${product.price * product.quantity}</td>
-                    <td>{canCancel(item.orderDate, 48) ? 'In Process...' : <button>Review</button>}</td>
+                    <td>{cancelAvailableStill ? 'In Process...' : <button>Review</button>}</td>
                   </tr>
                 ))}
               </tbody>
@@ -56,7 +69,7 @@ export const OrderItem = ({ item, cancelOrderHandler }) => {
       )}
     </>
   )
-}
+})
 
 /** Check if the order can be canceled (now we assume 48 hours) */
 const canCancel = (orderDate, hours) => {
