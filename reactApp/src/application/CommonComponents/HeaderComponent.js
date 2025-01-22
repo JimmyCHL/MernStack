@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { SignOutUser } from '../State/User/UserActions'
 
 const Header = (props) => {
+  const location = useLocation()
   const navigate = useNavigate()
   let user = props.user //reading from mapStateToProps which reads from userReducer.user
   console.log(user)
@@ -11,6 +12,15 @@ const Header = (props) => {
 
   const usrName = user && user.userName ? user.userName : ''
   // const studentUsrName = props.student && props.student.userName ? props.student.userName : ''
+
+  /** Check location (route changes), if no token, we will sign User out, (for more advance we can check expiration date as well, but not for this project) */
+  useEffect(() => {
+    if (location.pathname === '/home' || location.pathname === '/about') return
+    if (!localStorage.getItem('token')) {
+      props.signOutUser()
+      navigate('/login')
+    }
+  }, [location.pathname])
 
   return (
     <>
@@ -20,7 +30,7 @@ const Header = (props) => {
           <button
             onClick={() => {
               props.signOutUser()
-              navigate('/home')
+              navigate('/login')
             }}
           >
             Logout

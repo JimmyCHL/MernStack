@@ -1,13 +1,16 @@
 const express = require('express') // importing package
 const app = express() // initializing the express application
+require('dotenv').config()
+const s3 = require('./awsConfig')
 const defaultRoutes = require('./Routes/defaultRoute')
 const userRoutes = require('./Routes/userRoute')
 const studentRoutes = require('./Routes/studentRoute')
 const productRoutes = require('./Routes/productRoute')
 const cartRoutes = require('./Routes/cartRoute')
-const s3 = require('./awsConfig')
+
 const cors = require('cors')
 const orderRouter = require('./Routes/orderRoute')
+const { authenticateJWT } = require('./jwtConfig')
 
 /**
  * globalThis is a standardized way to access the global object in JavaScript, regardless of the environment your code is running in (e.g., browser, Node.js, Web Workers).
@@ -61,11 +64,11 @@ userApp.use('/', userRoutes) //redirecting all the calls having user in it to us
 
 studentApp.use('/', studentRoutes) //redirecting all the calls having student in it to student router
 
-productApp.use('/', productRoutes) //redirecting all the calls having product in it to product router
+productApp.use('/', authenticateJWT, productRoutes) //redirecting all the calls having product in it to product router
 
-cartApp.use('/', cartRoutes) //redirecting all the calls having cart in it to cart router
+cartApp.use('/', authenticateJWT, cartRoutes) //redirecting all the calls having cart in it to cart router
 
-orderApp.use('/', orderRouter)
+orderApp.use('/', authenticateJWT, orderRouter)
 
 // application mounting
 app.use('/admin', adminApp)

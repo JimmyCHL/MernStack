@@ -1,4 +1,3 @@
-require('dotenv').config()
 const AWS = require('aws-sdk')
 
 // Set up AWS config with your credentials and region

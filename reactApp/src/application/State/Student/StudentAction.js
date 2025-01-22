@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axiosInstance from '../../config/globalAxios'
 import * as actionTypes from '../ActionTypes'
 
 export const AddStudentToStore = (student) => {
@@ -16,9 +16,9 @@ export const SignOutStudent = () => {
 
 export const SaveStudentToServer = (studentObj) => {
   return (dispatch) => {
-    axios
+    axiosInstance
       .post(
-        'http://localhost:3000/student/api/signinup', //uri or end point of singninup api
+        '/student/api/signinup', //uri or end point of singninup api
         studentObj
       )
       .then((collection) => {

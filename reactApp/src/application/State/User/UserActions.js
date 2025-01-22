@@ -1,6 +1,6 @@
 //defines user actions which contains action type and payload for each action creator to dispatch to store
 
-import axios from 'axios'
+import axiosInstance from '../../config/globalAxios'
 import * as actionTypes from '../ActionTypes'
 import { EMPTY_CART, fetchUserCart } from '../Cart/CartAction'
 import { EMPTY_COUPON } from '../Coupon/CouponAction'
@@ -26,6 +26,9 @@ export const SignOutUser = () => {
     dispatch(EMPTY_COUPON())
     //clear the order when user signout
     dispatch(EMPTY_ORDER())
+
+    //Remove token while signout
+    localStorage.removeItem('token')
   }
 }
 
@@ -48,13 +51,15 @@ export const SaveUserToDBUsingFetch = (userObj) => {
         return response.json()
       })
       .then((userData) => {
-        console.log(userData)
+        const { user, token } = userData
+        //set token to local storage
+        localStorage.setItem('token', token)
         //dispatch or send saved/signin user to reducer
-        dispatch(AddUserToStore(userData))
+        dispatch(AddUserToStore(user))
         //get current user cart from server
-        dispatch(fetchUserCart(userData._id))
+        dispatch(fetchUserCart(user._id))
         //get current user orders from server
-        dispatch(getOrders(loggedUser._id))
+        dispatch(getOrders(user._id))
       })
       .catch((error) => console.log(error))
   }
@@ -64,20 +69,22 @@ export const SaveUserToDBUsingAxios = (userObj) => {
   return (dispatch) => {
     // should clean the existing cart when you login new user or re-login
     dispatch(EMPTY_CART())
-    axios
+    axiosInstance
       .post(
-        'http://localhost:3000/user/api/signinup', //uri or end point of singninup api
+        '/user/api/signinup', //uri or end point of singninup api
         userObj // the user state object we dispatch from the user component
       )
       .then((collection) => {
         console.log(collection)
-        let loggedUser = collection.data
-        console.log(loggedUser)
-        dispatch(AddUserToStore(loggedUser))
+        const { user, token } = collection.data
+        //set token to local storage
+        localStorage.setItem('token', token)
+
+        dispatch(AddUserToStore(user))
         //get current user cart from server
-        dispatch(fetchUserCart(loggedUser._id))
+        dispatch(fetchUserCart(user._id))
         //get current user orders from server
-        dispatch(getOrders(loggedUser._id))
+        dispatch(getOrders(user._id))
       })
       .catch((error) => console.log(error))
   }

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axiosInstance from '../../config/globalAxios'
 import * as actionTypes from '../ActionTypes'
 
 export const ADD_PRODUCT = (product) => {
@@ -10,8 +10,8 @@ export const ADD_PRODUCT = (product) => {
 
 export const fetchProductsFromServer = () => {
   return (dispatch) => {
-    axios
-      .get('http://localhost:3000/product/api/getProducts')
+    axiosInstance
+      .get('/product/api/getProducts')
       .then((collection) => {
         let products = collection.data
         dispatch({
@@ -25,8 +25,8 @@ export const fetchProductsFromServer = () => {
 
 export const saveProductToServer = (product) => {
   return (dispatch) => {
-    axios
-      .post('http://localhost:3000/product/api/addProduct', product)
+    axiosInstance
+      .post('/product/api/addProduct', product)
       .then((collection) => {
         console.log(collection)
         let product = collection.data

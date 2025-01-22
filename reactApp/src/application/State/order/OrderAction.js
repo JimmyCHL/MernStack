@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axiosInstance from '../../config/globalAxios'
 import * as actionTypes from '../ActionTypes'
 import { EMPTY_CART, MERGE_CART, removeCartAfterCheckout } from '../Cart/CartAction'
 import { EMPTY_COUPON } from '../Coupon/CouponAction'
@@ -45,8 +45,8 @@ export const addOrder = (userId, coupon, callback) => {
           percentage: 10,
         }
       : undefined
-    axios
-      .post('http://localhost:3000/order/api/createOrder', { userId, cart, discount })
+    axiosInstance
+      .post('/order/api/createOrder', { userId, cart, discount })
       .then((response) => {
         const order = response.data
         dispatch(ADD_ORDER(order))
@@ -65,8 +65,8 @@ export const addOrder = (userId, coupon, callback) => {
 // fetch orders from database for a user
 export const getOrders = (userId) => {
   return function (dispatch) {
-    axios
-      .post('http://localhost:3000/order/api/fetchOrdersByUserId', { userId })
+    axiosInstance
+      .post('/order/api/fetchOrdersByUserId', { userId })
       .then((response) => {
         const orders = response.data
         dispatch(FETCH_ORDERS(orders))
@@ -80,8 +80,8 @@ export const getOrders = (userId) => {
 // cancel order by order id
 export const cancelOrder = (orderId, callback) => {
   return function (dispatch, getState) {
-    axios
-      .delete(`http://localhost:3000/order/api/cancelOrder`, { data: { orderId } })
+    axiosInstance
+      .delete(`/order/api/cancelOrder`, { data: { orderId } })
       .then((response) => {
         const order = response.data
         if (!order) {

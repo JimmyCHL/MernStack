@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axiosInstance from '../../config/globalAxios'
 import * as actionTypes from '../ActionTypes'
 
 /**  Add Item to Cart */
@@ -67,8 +67,8 @@ export const fetchUserCart = (userId) => {
   console.log('Cart ')
   return function (dispatch) {
     //dispatch(loading(true));
-    axios
-      .post('http://localhost:3000/cart/api/getUserCart', { userId })
+    axiosInstance
+      .post('/cart/api/getUserCart', { userId })
       .then((collection) => {
         const cartList = collection.data
         console.log('get cartList response ', cartList)
@@ -90,8 +90,8 @@ export const fetchUserCart = (userId) => {
 export const saveCartForCheckout = (userCartObject) => {
   return function (dispatch) {
     //dispatch(loading(true));
-    axios
-      .post('http://localhost:3000/cart/api/saveUserCart', userCartObject)
+    axiosInstance
+      .post('/cart/api/saveUserCart', userCartObject)
       .then((collection) => {
         //dispatch(loading(false));
         console.log('Cart Saved Successfully', collection.data)
@@ -106,8 +106,8 @@ export const saveCartForCheckout = (userCartObject) => {
 export const removeCartAfterCheckout = (userCartObject) => {
   return function (dispatch) {
     //dispatch(loading(true));
-    axios
-      .post('http://localhost:3000/cart/api/saveUserCart', userCartObject)
+    axiosInstance
+      .post('/cart/api/saveUserCart', userCartObject)
       .then((collection) => {
         //dispatch(loading(false));
         console.log('Old cart clear', collection.data)
