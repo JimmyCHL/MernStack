@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { useState } from 'react'
 import '../Styles/ProductCard.css'
 import { AddToCartButton } from './AddToCartButton'
+import { GoToReviewButton } from './GoToReviewButton'
 
 export const ProductCard = ({ product }) => {
   const [showHide, toggleShowHide] = useState(false)
@@ -21,8 +22,9 @@ export const ProductCard = ({ product }) => {
             <li>Description: {product.desc}</li>
             <li>Category: {product.category}</li>
             <li>Rate: {product.rate}</li>
-            <li>
+            <li style={{ display: 'flex' }}>
               <AddToCartButton product={product} />
+              <GoToReviewButton product={product} />
             </li>
           </ul>
         ) : (

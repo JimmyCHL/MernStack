@@ -14,7 +14,7 @@ export const AddToCartButton = ({ product }) => {
   }
 
   return (
-    <div className="m-auto">
+    <div>
       <button onClick={addProductToCart}>Add To Cart</button>
     </div>
   )

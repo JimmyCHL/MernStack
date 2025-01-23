@@ -2,6 +2,7 @@ import { format } from 'date-fns'
 import { memo, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { cancelOrder, reOrder } from '../../../State/Order/OrderAction'
+import { GoToReviewButton } from '../../Products/Components/GoToReviewButton'
 import '../CSS/OrderList.css'
 
 export const OrderRow = memo(({ item }) => {
@@ -59,7 +60,7 @@ export const OrderRow = memo(({ item }) => {
                     <td>${product.price}</td>
                     <td>{product.quantity}</td>
                     <td>${product.price * product.quantity}</td>
-                    <td>{cancelAvailableStill ? 'In Process...' : <button>Review</button>}</td>
+                    <td>{cancelAvailableStill ? 'In Process...' : <GoToReviewButton product={product.item} />}</td>
                   </tr>
                 ))}
               </tbody>

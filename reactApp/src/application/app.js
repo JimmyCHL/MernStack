@@ -12,6 +12,7 @@ import { Coupon } from './ApplicationComponents/Coupon/components/Coupon.jsx'
 import { OrderList } from './ApplicationComponents/Order/components/OrderList.jsx'
 import { ProductForm } from './ApplicationComponents/Products/Components/ProductForm'
 import { ProductScreen } from './ApplicationComponents/Products/Components/ProductScreen'
+import { ReviewScreen } from './ApplicationComponents/Reviews/Components/ReviewScreen.jsx'
 import UserHooks from './ApplicationComponents/User/UserHooksRefComponent'
 import About from './CommonComponents/AboutComponent'
 import { AppCopy } from './CommonComponents/AppCopy'
@@ -53,6 +54,7 @@ export default class ApplicationComponent extends React.Component {
           <Route path="/productForm" element={<ProductForm />} />
           <Route path="/couponGeneration" element={<Coupon />} />
           <Route path="/productsList" element={<ProductScreen />} />
+          <Route path="/review/:id" element={<ReviewScreen />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/orders" element={<OrderList />} />
