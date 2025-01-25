@@ -7,9 +7,10 @@ const userRoutes = require('./Routes/userRoute')
 const studentRoutes = require('./Routes/studentRoute')
 const productRoutes = require('./Routes/productRoute')
 const cartRoutes = require('./Routes/cartRoute')
+const reviewRoutes = require('./Routes/reviewRoute')
 
 const cors = require('cors')
-const orderRouter = require('./Routes/orderRoute')
+const orderRoutes = require('./Routes/orderRoute')
 const { authenticateJWT } = require('./jwtConfig')
 
 /**
@@ -34,6 +35,8 @@ const productApp = express()
 const cartApp = express()
 
 const orderApp = express()
+
+const reviewApp = express()
 
 //user, product, cart etc are the routes - examples
 
@@ -68,7 +71,9 @@ productApp.use('/', authenticateJWT, productRoutes) //redirecting all the calls 
 
 cartApp.use('/', authenticateJWT, cartRoutes) //redirecting all the calls having cart in it to cart router
 
-orderApp.use('/', authenticateJWT, orderRouter)
+orderApp.use('/', authenticateJWT, orderRoutes)
+
+reviewApp.use('/', authenticateJWT, reviewRoutes)
 
 // application mounting
 app.use('/admin', adminApp)
@@ -82,6 +87,8 @@ app.use('/product', productApp)
 app.use('/cart', cartApp)
 
 app.use('/order', orderApp)
+
+app.use('/review', reviewApp)
 
 app.use('/', defaultRoutes)
 
