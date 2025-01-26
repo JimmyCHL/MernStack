@@ -44,4 +44,16 @@ productRouter.get('/api/getProducts', (req, res) => {
     })
 })
 
+productRouter.post('/api/getProductById', (req, res) => {
+  const { id } = req.body
+  productModal
+    .findById(id)
+    .then((product) => {
+      res.send(product)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.send('Error while fetching product')
+    })
+})
 module.exports = productRouter

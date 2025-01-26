@@ -46,3 +46,15 @@ export const saveProductToServer = (product) => {
       .catch((error) => console.log(error))
   }
 }
+
+// Fetch product by ID
+export const fetchProductById = async (productId, callback) => {
+  try {
+    const response = await axiosInstance.post('/product/api/getProductById', { id: productId })
+    const product = response.data
+    callback(product)
+  } catch (err) {
+    console.log('There was an error:', err)
+    alert('There was an error:', err)
+  }
+}
