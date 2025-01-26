@@ -10,7 +10,7 @@ export const GoToReviewButton = ({ product }) => {
     evt.stopPropagation()
     evt.preventDefault()
 
-    navigation('/review/' + product._id)
+    navigation('/review/' + product._id, { state: { product } })
   }
 
   return (

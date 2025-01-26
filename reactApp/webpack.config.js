@@ -21,6 +21,9 @@ const config = {
   },
   resolve: {
     extensions: ['.js', '.jsx'], // Webpack will automatically resolve these extensions
+    alias: {
+      'core-js-pure': path.resolve(__dirname, 'node_modules/core-js-pure'),
+    },
   },
   // webpack 5 comes with devServer which loads in development mode
   devServer: {
