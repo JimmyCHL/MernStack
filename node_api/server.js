@@ -8,6 +8,7 @@ const studentRoutes = require('./Routes/studentRoute')
 const productRoutes = require('./Routes/productRoute')
 const cartRoutes = require('./Routes/cartRoute')
 const reviewRoutes = require('./Routes/reviewRoute')
+const hobbyRoutes = require('./Routes/hobbyRoute')
 
 const cors = require('cors')
 const orderRoutes = require('./Routes/orderRoute')
@@ -37,6 +38,8 @@ const cartApp = express()
 const orderApp = express()
 
 const reviewApp = express()
+
+const hobbyApp = express()
 
 //user, product, cart etc are the routes - examples
 
@@ -75,6 +78,8 @@ orderApp.use('/', authenticateJWT, orderRoutes)
 
 reviewApp.use('/', authenticateJWT, reviewRoutes)
 
+hobbyApp.use('/', hobbyRoutes)
+
 // application mounting
 app.use('/admin', adminApp)
 
@@ -89,6 +94,8 @@ app.use('/cart', cartApp)
 app.use('/order', orderApp)
 
 app.use('/review', reviewApp)
+
+app.use('/hobby', hobbyApp)
 
 app.use('/', defaultRoutes)
 

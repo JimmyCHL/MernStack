@@ -1,12 +1,16 @@
 //hooks are the independent functions build perform the tasks we have to do with states, reducers etc
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { Dropdown } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { SaveUserToDBUsingAxios } from '../../State/User/UserActions'
+import { hobbiesSelector } from '../../State/Hobby/HobbySelector'
+import { SaveUserToDBUsingAxios, updateHobby } from '../../State/User/UserActions'
 
 const UserHooksRefComponent = () => {
   //to subscribe we need to implement - mapStateToProps and its equivalent hook is useSelector
   const user = useSelector((store) => store.userReducer.user)
   //console.log(user)
+  const hobbies = useSelector(hobbiesSelector)
+  const [hobby, setHobby] = useState(null)
 
   //to make component a publisher we need to implement mapDispatch to props - useDispatch
   const dispatcher = useDispatch()
@@ -30,9 +34,16 @@ const UserHooksRefComponent = () => {
     evt.preventDefault()
   }
 
+  //Assessment
+  const updateUserWithHobby = (evt) => {
+    if (!hobby) return alert('Please select a hobby to update')
+    dispatcher(updateHobby(user._id, hobby))
+    evt.preventDefault()
+  }
+
   useEffect(() => {
     userRef.current = { userName: user.userName, password: user.password, street: user.street, mobile: user.mobile }
-
+    setHobby(user.hobby)
     console.log(userRef.current)
     return () => {
       console.log('Component Unmounted')
@@ -87,6 +98,30 @@ const UserHooksRefComponent = () => {
               maxLength={11}
               onChange={onTextChange}
             />
+
+            {user.userName && (
+              <>
+                <Dropdown>
+                  <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    {hobby ? hobby.name : 'Select Hobby'}
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    {hobbies.map((hobby) => (
+                      <Dropdown.Item key={hobby.name} onClick={() => setHobby(hobby)} eventKey={hobby.name}>
+                        {hobby.name}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+                <input
+                  type="button"
+                  className={'btn btn-primary col-md-2 saveUser'}
+                  value={'Update hobby'}
+                  onClick={updateUserWithHobby}
+                />
+              </>
+            )}
           </div>
           <input
             type="button"

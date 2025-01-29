@@ -18,6 +18,10 @@ let userSchema = new schemaObj(
     password: { type: String, required: true },
     street: String,
     mobile: Number,
+    hobby: {
+      type: schemaObj.Types.ObjectId,
+      ref: 'hobby',
+    },
   }
   //,
   // {

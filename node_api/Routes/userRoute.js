@@ -12,17 +12,23 @@ userRouter.post('/api/signinup', (req, res) => {
     .findOne({ userName: req.body.userName })
     .then((existingUser) => {
       if (existingUser) {
-        //user exists so send the user details - sign in
+        userDataModel
+          .findOne({ userName: req.body.userName })
+          .populate('hobby')
+          .exec()
+          .then((localUser) => {
+            //user exists so send the user details - sign in
 
-        // Create a JWT token (should convert Mongodb object to plain object)
-        const token = jwt.sign(existingUser.toObject(), process.env.JWT_SECRET, {
-          expiresIn: '1h',
-        })
+            // Create a JWT token (should convert Mongodb object to plain object)
+            const token = jwt.sign(localUser.toObject(), process.env.JWT_SECRET, {
+              expiresIn: '1h',
+            })
 
-        res.send({
-          user: existingUser,
-          token,
-        })
+            res.send({
+              user: localUser,
+              token,
+            })
+          })
       } //user doesn't exists so create one and create one - sign up
       else {
         let userSchemaObj = new userDataModel(req.body) //for new user
@@ -69,4 +75,22 @@ userRouter.get('/api/users', (req, res) => {
     })
 })
 
+userRouter.put('/api/updateHobby', (req, res) => {
+  const { userId, hobby } = req.body
+  userDataModel
+    .findByIdAndUpdate(userId, { hobby: hobby._id }, { new: true }) //new:true will return the updated <document>   </document>
+    .then((user) => {
+      userDataModel
+        .findById(userId)
+        .populate('hobby')
+        .exec()
+        .then((localUser) => {
+          res.send(localUser)
+        })
+    })
+    .catch((err) => {
+      console.log(err)
+      res.send('Error while updating hobby')
+    })
+})
 module.exports = userRouter

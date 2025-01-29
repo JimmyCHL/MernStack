@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { FETCH_HOBBIES } from '../State/ActionTypes'
+import { fetchHobbies } from '../State/Hobby/HobbyAction'
 import { SignOutUser } from '../State/User/UserActions'
+import { ShowTime } from './Assessment4Comp/ShowTime'
 
 const Header = (props) => {
   const location = useLocation()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   let user = props.user //reading from mapStateToProps which reads from userReducer.user
   console.log(user)
   // console.log('props.student ' + JSON.stringify(props.student))
@@ -15,12 +19,22 @@ const Header = (props) => {
 
   /** Check location (route changes), if no token, we will sign User out, (for more advance we can check expiration date as well, but not for this project) */
   useEffect(() => {
-    if (location.pathname === '/home' || location.pathname === '/about') return
+    if (
+      location.pathname === '/home' ||
+      location.pathname === '/about' ||
+      location.pathname === '/atmDispenser' ||
+      location.pathname === '/addHobby'
+    )
+      return
     if (!localStorage.getItem('token')) {
       props.signOutUser()
       navigate('/login')
     }
   }, [location.pathname])
+
+  useEffect(() => {
+    fetchHobbies((hobbies) => dispatch({ type: FETCH_HOBBIES, payload: hobbies }))
+  }, [])
 
   return (
     <>
@@ -53,6 +67,7 @@ const Header = (props) => {
 
       {!usrName ? (
         <div>
+          <ShowTime />
           <NavLink to="/home" className="button" activeclassname="true">
             Home
           </NavLink>
@@ -61,6 +76,12 @@ const Header = (props) => {
           </NavLink>
           <NavLink to="/about" className="button" activeclassname="true">
             About
+          </NavLink>
+          <NavLink to="/atmDispenser" className="button" activeclassname="true">
+            ATM Dispenser
+          </NavLink>
+          <NavLink to="/addHobby" className="button" activeclassname="true">
+            Add Hobby
           </NavLink>
         </div>
       ) : (

@@ -16,6 +16,8 @@ import { ReviewScreen } from './ApplicationComponents/Reviews/Components/ReviewS
 import UserHooks from './ApplicationComponents/User/UserHooksRefComponent'
 import About from './CommonComponents/AboutComponent'
 import { AppCopy } from './CommonComponents/AppCopy'
+import { AddHobby } from './CommonComponents/Assessment4Comp/AddHobby.jsx'
+import ATMDispenser from './CommonComponents/Assessment4Comp/ATMDispenser.jsx'
 import { AW3Component } from './CommonComponents/AW3Component'
 import Footer from './CommonComponents/Footer'
 import Header from './CommonComponents/HeaderComponent'
@@ -61,6 +63,8 @@ export default class ApplicationComponent extends React.Component {
           <Route path="/cancelled-orders" element={<OrderList cancelledOrderOnly />} />
           <Route path="/app" element={<AppCopy />} />
           <Route path="/about" element={<About />} />
+          <Route path="/atmDispenser" element={<ATMDispenser />} />
+          <Route path="/addHobby" element={<AddHobby />} />
           <Route path="/about/:id" element={<About />} />
           <Route path="/aws/image" element={<AW3Component />} />
           <Route path="/topics/*" element={<Topics />}>

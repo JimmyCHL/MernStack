@@ -89,3 +89,20 @@ export const SaveUserToDBUsingAxios = (userObj) => {
       .catch((error) => console.log(error))
   }
 }
+
+export const updateHobby = (userId, hobby) => {
+  console.log(userId, hobby)
+  return (dispatch) => {
+    axiosInstance
+      .put('/user/api/updateHobby', { userId, hobby })
+      .then((collection) => {
+        console.log(collection)
+        const user = collection.data
+        dispatch(AddUserToStore(user))
+      })
+      .catch((error) => {
+        dispatch(SignOutUser())
+        console.log(error)
+      })
+  }
+}
