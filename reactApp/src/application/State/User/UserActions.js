@@ -75,6 +75,11 @@ export const SaveUserToDBUsingAxios = (userObj) => {
         userObj // the user state object we dispatch from the user component
       )
       .then((collection) => {
+        //if user is not found or error while fetching existing user or error while sign up, we just sign out the user directly
+        if (collection.data === 'Error while fetching existing user' || collection.data === 'error while sign up') {
+          return dispatch(SignOutUser())
+        }
+
         console.log(collection)
         const { user, token } = collection.data
         //set token to local storage
