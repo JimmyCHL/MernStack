@@ -3,9 +3,11 @@ import { useEffect, useState } from 'react'
 export const ShowTime = () => {
   const [time, setTime] = useState(new Date().toLocaleTimeString())
   useEffect(() => {
-    setInterval(() => {
+    const intervalId = setInterval(() => {
       setTime(new Date().toLocaleTimeString())
     }, 1000)
+
+    return () => clearInterval(intervalId)
   }, [])
 
   return (
