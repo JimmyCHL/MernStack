@@ -4,6 +4,7 @@ import axiosInstance from '../../config/globalAxios'
 import * as actionTypes from '../ActionTypes'
 import { EMPTY_CART, fetchUserCart } from '../Cart/CartAction'
 import { EMPTY_COUPON } from '../Coupon/CouponAction'
+import { getNotifications } from '../Notification/NotificationActions'
 import { EMPTY_ORDER, getOrders } from '../Order/OrderAction'
 
 //action accepts payload value/object to be used in user reducer switch
@@ -90,6 +91,8 @@ export const SaveUserToDBUsingAxios = (userObj) => {
         dispatch(fetchUserCart(user._id))
         //get current user orders from server
         dispatch(getOrders(user._id))
+        //get the unRead notifications from server
+        dispatch(getNotifications(user._id))
       })
       .catch((error) => console.log(error))
   }

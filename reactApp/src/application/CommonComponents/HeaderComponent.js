@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
+import { MdNotifications } from 'react-icons/md'
 import { connect, useDispatch } from 'react-redux'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { NotificationOverLay } from '../ApplicationComponents/Notification/components/NotificationOverLay'
 import { FETCH_HOBBIES } from '../State/ActionTypes'
 import { fetchHobbies } from '../State/Hobby/HobbyAction'
 import { SignOutUser } from '../State/User/UserActions'
@@ -49,6 +51,27 @@ const Header = (props) => {
           >
             Logout
           </button>
+          <NotificationOverLay notifications={props.notifications}>
+            <div style={{ position: 'relative', display: 'inline-block', cursor: 'pointer' }}>
+              <MdNotifications size={30} color="black" />
+              {props.notifications.length > 0 && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    backgroundColor: 'red',
+                    color: 'white',
+                    borderRadius: '50%',
+                    padding: '5px',
+                    fontSize: '12px',
+                  }}
+                >
+                  {props.notifications.length}
+                </div>
+              )}
+            </div>
+          </NotificationOverLay>
         </h2>
       ) : (
         <div>
@@ -145,6 +168,7 @@ let mapStateToProps = (store) => {
   return {
     user: store.userReducer.user,
     student: store.studentReducer.student,
+    notifications: store.notificationReducer,
   }
 }
 

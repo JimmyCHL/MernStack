@@ -1,5 +1,6 @@
 import axiosInstance from '../../config/globalAxios'
 import * as actionTypes from '../ActionTypes'
+import { addNotification } from '../Notification/NotificationActions'
 
 /**  Add Item to Cart */
 export const ADD_PRODUCT_TO_CART = (product, showAlert = true) => {
@@ -9,7 +10,6 @@ export const ADD_PRODUCT_TO_CART = (product, showAlert = true) => {
       if (showAlert) alert('Product already added to cart')
       return
     }
-    if (showAlert) alert('Product added to cart')
     dispatch({
       type: actionTypes.ADD_PRODUCT_TO_CART,
       payload: { product },
@@ -21,6 +21,7 @@ export const ADD_PRODUCT_TO_CART = (product, showAlert = true) => {
 export const UPDATE_ITEM_IN_CART = (productId, qty) => {
   return (dispatch, getState) => {
     const cartList = getState().cartReducer
+    const user = getState().userReducer.user
     let productName = ''
     const updatedCartList = cartList.map((item) => {
       //...item means {name, desc, rating, qty, price}
@@ -30,7 +31,7 @@ export const UPDATE_ITEM_IN_CART = (productId, qty) => {
       }
       return item //for all other items in cart do not update anything
     })
-    alert(`${productName} qty is updated to ${qty}`)
+    dispatch(addNotification(user._id, `${productName} qty is updated to ${qty}`))
     dispatch({
       type: actionTypes.UPDATE_ITEM_IN_CART,
       payload: { updatedCartList },
@@ -40,7 +41,6 @@ export const UPDATE_ITEM_IN_CART = (productId, qty) => {
 
 /**  Remove Item from Cart */
 export const REMOVE_ITEM_FROM_CART = (productId) => {
-  alert('Product removed from cart')
   return {
     type: actionTypes.REMOVE_ITEM_FROM_CART,
     payload: { productId },
@@ -94,6 +94,7 @@ export const saveCartForCheckout = (userCartObject) => {
       .post('/cart/api/saveUserCart', userCartObject)
       .then((collection) => {
         //dispatch(loading(false));
+        dispatch(addNotification(userCartObject.userId, `Cart Saved Successfully`))
         console.log('Cart Saved Successfully', collection.data)
       })
       .catch((err) => {

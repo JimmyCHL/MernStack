@@ -2,6 +2,7 @@ import axiosInstance from '../../config/globalAxios'
 import * as actionTypes from '../ActionTypes'
 import { EMPTY_CART, MERGE_CART, removeCartAfterCheckout } from '../Cart/CartAction'
 import { EMPTY_COUPON } from '../Coupon/CouponAction'
+import { addNotification } from '../Notification/NotificationActions'
 
 /** Add order action */
 const ADD_ORDER = (order) => {
@@ -54,6 +55,8 @@ export const addOrder = (userId, coupon, callback) => {
         dispatch(EMPTY_CART())
         dispatch(removeCartAfterCheckout({ cart: [], userId }))
         dispatch(EMPTY_COUPON())
+        // add notification
+        dispatch(addNotification(userId, `${order.orderNumber} order placed successfully`))
         callback()
       })
       .catch((err) => {
@@ -95,6 +98,8 @@ export const cancelOrder = (orderId, callback) => {
           }
           return item
         })
+        // add notification
+        dispatch(addNotification(order.user._id, `${order.orderNumber} order is cancelled`))
         dispatch(UPDATE_ORDERS(updatedOrders))
         callback()
       })

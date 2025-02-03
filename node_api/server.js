@@ -9,6 +9,7 @@ const productRoutes = require('./Routes/productRoute')
 const cartRoutes = require('./Routes/cartRoute')
 const reviewRoutes = require('./Routes/reviewRoute')
 const hobbyRoutes = require('./Routes/hobbyRoute')
+const notificationRoutes = require('./Routes/notificationRoute')
 
 const cors = require('cors')
 const orderRoutes = require('./Routes/orderRoute')
@@ -40,6 +41,8 @@ const orderApp = express()
 const reviewApp = express()
 
 const hobbyApp = express()
+
+const notificationApp = express()
 
 //user, product, cart etc are the routes - examples
 
@@ -80,6 +83,8 @@ reviewApp.use('/', authenticateJWT, reviewRoutes)
 
 hobbyApp.use('/', hobbyRoutes)
 
+notificationApp.use('/', authenticateJWT, notificationRoutes)
+
 // application mounting
 app.use('/admin', adminApp)
 
@@ -98,6 +103,8 @@ app.use('/review', reviewApp)
 app.use('/hobby', hobbyApp)
 
 app.use('/', defaultRoutes)
+
+app.use('/notification', notificationApp)
 
 //start or wild card operator
 app.get('*', function (req, res) {

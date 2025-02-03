@@ -1,7 +1,20 @@
 const express = require('express') //import package
 const userRouter = express.Router({ strict: true, caseSensitive: true }) // a separate route table to create and handle our api's
 const userDataModel = require('../DataModel/UserDataModel')
+const notificationDataModel = require('../DataModel/NotificationModel')
 const { jwt } = require('../jwtConfig')
+
+const notificationsStatic = [
+  "Welcome to the app! We're glad you're here.",
+  "Don't forget to check out our new features.",
+  'Create products from Product Form Screen.',
+  'Add products from Product list Screen to Cart.',
+  'Create a new coupon from Coupon Generation Screen. Use it while placing an order.',
+  'Review Cart items from Cart and place an order from Checkout.',
+  'After placing your order, you can view it in the Orders page.',
+  'You can reorder and cancel orders from the Orders page.',
+  "Congratulations! You've completed the app tour.",
+]
 
 userRouter.post('/api/signinup', (req, res) => {
   let userObj = req.body //user object passed in the body of sigininup api
@@ -41,15 +54,27 @@ userRouter.post('/api/signinup', (req, res) => {
             //will get _id once document is created
             console.log('successful signup ', newUser)
 
-            // Create a JWT token
-            const token = jwt.sign(newUser.toObject(), process.env.JWT_SECRET, {
-              expiresIn: '1h',
+            // notification contents
+            const notifications = notificationsStatic.map((notification) => {
+              return {
+                user: newUser._id,
+                content: notification,
+              }
             })
 
-            res.send({
-              user: newUser,
-              token,
-            }) //{userName : "value"....}
+            /** When the new user is created, we should add the static notifications to help users.
+             */
+            notificationDataModel.insertMany(notifications).then(() => {
+              // Create a JWT token
+              const token = jwt.sign(newUser.toObject(), process.env.JWT_SECRET, {
+                expiresIn: '1h',
+              })
+
+              res.send({
+                user: newUser,
+                token,
+              }) //{userName : "value"....}
+            })
           })
           .catch((err1) => {
             console.log('err signup', err1)
