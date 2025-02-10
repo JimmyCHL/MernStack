@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken')
 
 // Middleware to protect routes
 const authenticateJWT = (req, res, next) => {
+  // Allow download route without token
+  if (req.path.includes('api/download')) return next()
   const token = req.header('Authorization')?.split(' ')[1]
 
   if (!token) return res.status(401).json({ message: 'Access denied' })

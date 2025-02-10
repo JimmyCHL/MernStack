@@ -31,6 +31,7 @@ export const OrderList = ({ cancelledOrderOnly = false }) => {
               <th>Total</th>
               <th>Status</th>
               <th>Action</th>
+              {!cancelledOrderOnly && <th>Download</th>}
             </tr>
           </thead>
           <tbody>

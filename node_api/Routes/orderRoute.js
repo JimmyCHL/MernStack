@@ -2,6 +2,8 @@ const express = require('express')
 const transporter = require('../mailConfig')
 const orderRouter = express.Router({ strict: true, caseSensitive: true })
 const { OrderModel, orderStatusEnum } = require('../DataModel/OrderModel')
+const createPDF = require('../pdfConfig')
+const s3 = require('../awsConfig')
 
 //order api's
 orderRouter.post('/api/createOrder', (req, res) => {
@@ -17,6 +19,22 @@ orderRouter.post('/api/fetchOrdersByUserId', (req, res) => {
 orderRouter.delete('/api/cancelOrder', (req, res) => {
   const orderId = req.body.orderId
   cancelOrder(res, orderId)
+})
+
+orderRouter.get('/api/download/:fileName', (req, res) => {
+  const fileName = req.params.fileName
+  const params = {
+    Bucket: process.env.BucketName,
+    Key: fileName,
+  }
+
+  s3.getObject(params, (err, data) => {
+    if (err) {
+      return res.status(500).send('Error fetching file from S3, or file does not exist!')
+    }
+    res.setHeader('Content-Type', 'application/pdf')
+    res.send(data.Body)
+  })
 })
 
 module.exports = orderRouter
@@ -47,7 +65,10 @@ const createOrder = (res, userId, cart, discount) => {
         .populate('user') // Populate the 'user' reference
         .populate('items.item') // Populate the 'items.item' reference
     })
-    .then((data) => {
+    .then(async (data) => {
+      // save to S3 bucket
+
+      await createPDF(data)
       // Send email to user
       const mailOptions = {
         from: process.env.EMAIL_USERNAME,

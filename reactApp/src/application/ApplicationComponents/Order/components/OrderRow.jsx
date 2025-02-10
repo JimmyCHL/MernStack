@@ -38,6 +38,17 @@ export const OrderRow = memo(({ item }) => {
         <td>
           <button onClick={(evt) => actionHandler(item, evt)}>{cancelAvailableStill ? 'Cancel' : 'ReOrder'}</button>
         </td>
+        {item.status !== 'cancelled' && (
+          <td>
+            <a
+              href={`http://localhost:3000/order/api/download/order_${item.orderNumber}.pdf`}
+              target="_blank"
+              onClick={(evt) => evt.stopPropagation()}
+            >
+              PDF
+            </a>
+          </td>
+        )}
       </tr>
 
       {open && (
