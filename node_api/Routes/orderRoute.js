@@ -1,4 +1,5 @@
 const express = require('express')
+const transporter = require('../mailConfig')
 const orderRouter = express.Router({ strict: true, caseSensitive: true })
 const { OrderModel, orderStatusEnum } = require('../DataModel/OrderModel')
 
@@ -47,7 +48,21 @@ const createOrder = (res, userId, cart, discount) => {
         .populate('items.item') // Populate the 'items.item' reference
     })
     .then((data) => {
-      res.status(200).json(data)
+      // Send email to user
+      const mailOptions = {
+        from: process.env.EMAIL_USERNAME,
+        to: process.env.MY_EMAIL, // Add the user's email here (for now, just use my own email)
+        subject: 'Order Confirmation',
+        text: `Your order has been placed successfully and we have confirmed your payment. Order ID: ${data._id}`,
+      }
+
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          return res.status(500).json({ message: err.message })
+        }
+        console.log('Email sent: ' + info.response)
+        res.status(200).json(data)
+      })
     })
     .catch((err) => {
       res.status(500).json({ message: err.message })
