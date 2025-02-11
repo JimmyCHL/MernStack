@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 import { couponSelector } from '../../../State/Coupon/CouponSelector'
 import { addOrder } from '../../../State/Order/OrderAction'
 import { userSelector } from '../../../State/User/UserSelector'
@@ -28,6 +29,22 @@ export const Checkout = () => {
         ) : (
           <>
             <h2>~ Checkout Component ~</h2>
+            {/* <ToastContainer /> */}
+            <button
+              onClick={() =>
+                toast('Order Placed Successfully', {
+                  position: 'top-right',
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                })
+              }
+            >
+              button
+            </button>
             <h3>User Details</h3>
             <p>Name: {user.userName}</p>
             <p>Mobile: {user.mobile}</p>

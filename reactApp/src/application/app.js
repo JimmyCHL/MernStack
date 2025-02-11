@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 import './app.css'
 import UserHooks from './ApplicationComponents/User/UserHooksRefComponent'
 import About from './CommonComponents/AboutComponent'
@@ -69,6 +70,7 @@ export default class ApplicationComponent extends React.Component {
       <Router>
         <Suspense fallback={<div>Loading...</div>}>
           <Header />
+          <ToastContainer />
           <Routes>
             <Route path="/" element={<Home user={this.state.user} />} />
             <Route path="home" element={<Home />} />
